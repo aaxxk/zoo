@@ -15,12 +15,12 @@ return [
     // 服务器地址
     'hostname'        => 'https://cs2410-web01pvm.aston.ac.uk/phpmyadmin'//数据库host,
     // 数据库名
-    'database'        => 'u_190174923_db'//数据库名,
+    'database'        => 'u_190174923_db',//数据库名,
     // 用户名
-    'username'        => 'u-190174923'//数据库账号,
+    'username'        => 'u-190174923',//数据库账号,
     // 密码
 
-    'password'        => 'SbY96YpnlqaiFiz'//你的数据库密码,
+    'password'        => 'SbY96YpnlqaiFiz',//你的数据库密码,
 
     // 端口
     'hostport'        => '3306',
