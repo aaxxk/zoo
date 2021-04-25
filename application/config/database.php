@@ -13,7 +13,7 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => 'localhost',//数据库host,
+    'hostname'        => '127.0.0.1',//数据库host,
     // 数据库名
     'database'        => 'u_190174923_db',//数据库名,
     // 用户名
