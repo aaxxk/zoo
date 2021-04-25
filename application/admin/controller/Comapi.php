@@ -23,7 +23,7 @@ class Comapi extends MyController
         //$file = request()->file($upload);
         $allowType=array('jpg','png','jpeg');
         $allowSize=100;//规定单位是M
-        $uploadDir='uploads/';
+        $uploadDir='/public_html/public/uploads/';
         $msg=array();
 
         if(!empty($upload)){
@@ -67,7 +67,7 @@ class Comapi extends MyController
         }
         $msg['status']=1;
         $msg['msg']='上传成功';
-        $msg['savePath']=$Path;
+        $msg['savePath']=substr($Path,12);
         $msg['name']=$fileName;
         $msg['lastfix']=$last;
         $msg['size']=$upfile['size'];
