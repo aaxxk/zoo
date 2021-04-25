@@ -16,7 +16,7 @@ return [
 
 //替换html中的目录
     'view_replace_str'  =>  [
-        '__PUBLIC__'=>'../zoo/public/static/front',
+        '__PUBLIC__'=>'/static/front',
         '__ROOT__' => '/',
     ],
     //加载html中的头尾部
