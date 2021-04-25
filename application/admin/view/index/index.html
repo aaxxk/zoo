@@ -1,0 +1,69 @@
+<body>
+<!-- 顶部开始 -->
+<div class="container">
+    <div class="logo"><a href="#">ASTON</a></div>
+    <div class="left_open">
+        <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+    </div>
+
+    <ul class="layui-nav right" lay-filter="">
+        <li class="layui-nav-item">
+            <a href="javascript:;">welcome {$session['real_name']}  now : {:date('Y-m-d H:i:s')}</a>
+            <dl class="layui-nav-child">
+                <dd><a href="/admin/login/outlogin">logout</a></dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+
+
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+            <?php  foreach($menu_list as $k=>$v){  ?>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">{$v['icon']}</i>
+                    <cite>{$v['title']}</cite>
+                    <i class="iconfont nav_right">&#xe697;</i> </a>
+                <ul class="sub-menu">
+                    <?php foreach($v['children'] as $kk=>$vv){ ?>
+                    <li>
+                        <a _href="{$vv['path']}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>{$vv['title']}</cite>
+                        </a>
+                    </li >
+                    <?php }?>
+
+                </ul>
+            </li>
+
+            <?php } ?>
+
+
+        </ul>
+    </div>
+</div>
+<!-- <div class="x-slide_left"></div> -->
+<!-- 左侧菜单结束 -->
+<!-- 右侧主体开始 -->
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <ul class="layui-tab-title">
+            <li>welcome</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe src="/admin/index/welcome" frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content-bg"></div>
+<!-- 右侧主体结束 -->
+<!-- 中部结束 -->
+<!-- 底部开始 -->
+
+</body>
+</html>

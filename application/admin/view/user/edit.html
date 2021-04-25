@@ -1,0 +1,163 @@
+ <div class="x-body">
+        <form class="layui-form" method="post" action="" id="userFrom">
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>账号
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="username" name="username" value="{$user->username}" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="x-red">*</span>将会成为您唯一的登入名
+              </div>
+          </div>
+
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>真实姓名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="real_name" name="real_name" value="{$user->real_name}" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <script src="__PUBLIC__/lib/layui/layui.js"></script>
+            <script>
+                layui.use('upload', function(){
+                    var upload = layui.upload;
+
+                    //执行实例
+                    var uploadInst = upload.render({
+                        elem: '#test1' //绑定元素
+                        ,url: "/admin/comapi/upImage" //上传接口
+                        ,method:'post'
+                        ,done: function(res){
+
+                            //上传完毕回调
+                            if(res.status==1){
+                                layer.msg(res.msg);
+                                var str = '/'+res.savePath
+                                $("#image").attr("src",str);
+                                $("#image").val(res.savePath);
+                                $(".image").val(res.savePath);
+                            }
+
+                        }
+                        ,error: function(){
+                            //请求异常回调
+                            layer.msg('上传失败');
+                        }
+                    });
+                });
+            </script>
+            <div class="layui-form-item">
+                <label  class="layui-form-label">
+                    <span class="x-red">*</span>微信
+                </label>
+                <button type="button" class="layui-btn" id="test1">
+                    <i class="layui-icon">&#xe67c;</i>上传图片
+                </button>
+                <div style="width:280px;padding-left:115px;padding-top:20px;">
+                    <img  id="image"   width="280px" height="150px" src="/{$user->image}">
+                    <input type="hidden" name="image" class="image" />
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>网名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="net_name" name="net_name" value="{$user->net_name}" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>职业
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="profes" name="profes" required="" value="{$user->profes}" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>email
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="email" name="email" required="" value="{$user->email}" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>座右铭
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="motto" name="motto" required="" value="{$user->motto}" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <input type="hidden" value="{$user->user_id}" name="user_id">
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <a  class="layui-btn" lay-filter="add" lay-submit="">
+                  修改
+              </a>
+          </div>
+      </form>
+    </div>
+    <script>
+        layui.use(['form','layer'], function(){
+            $ = layui.jquery;
+          var form = layui.form
+          ,layer = layui.layer;
+
+          //自定义验证规则
+          form.verify({
+            nikename: function(value){
+              if(value.length < 5){
+                return '昵称至少得5个字符啊';
+              }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,repass: function(value){
+                if($('#L_pass').val()!=$('#L_repass').val()){
+                    return '两次密码不一致';
+                }
+            }
+          });
+
+          //监听提交
+          form.on('submit(add)', function(data){
+            //发异步，把数据提交给php
+              $.ajax({
+                  url:"/admin/user/edit",
+                  data:$("#userFrom").serialize(),//传递到处理页面的值，也是JSON数据，要用{}。如果传2个值就在{}里面加逗号，再写另外1个值。
+                  type:"POST",
+                  dataType:"json",
+                  success:function(data){
+                          if(data.code==200){
+                              layer.alert(data.msg);
+                              setTimeout(function(){
+                                  var index = parent.layer.getFrameIndex(window.name);
+                                  parent.layer.close(index);
+                                  window.parent.location.reload();
+                              },2000);
+                          }
+
+                  },
+              });
+          });
+
+
+        });
+
+
+
+    </script>
+
+
+</html>

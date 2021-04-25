@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台登录-X-admin2.0</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="__PUBLIC__/css/font.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="__PUBLIC__/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/xadmin.js"></script>
+
+</head>
+<body class="login-bg">
+<style>
+    .btn{
+        display: inline-block;
+        vertical-align: middle;
+        padding: 12px 10px;
+        margin: 0px;
+        font-size: 18px;
+        line-height: 24px;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        color: #ffffff;
+        background-color: #189F92;
+        border-radius: 3px;
+        border: none;
+        -webkit-appearance: none;
+        outline: none;
+    }
+</style>
+<div class="login">
+    <div class="message">管理后台</div>
+    <div id="darkbannerwrap"></div>
+
+    <form method="post" class="layui-form" action="">
+        <input name="username" id="usm" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
+        <hr class="hr15">
+        <input name="password" id="psd" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
+        <hr class="hr15">
+        <input value="登录" lay-submit lay-filter="login" style="width:100%;" onclick="checklogin()" class="btn">
+        <hr class="hr20" >
+    </form>
+</div>
+
+<script>
+    jQuery(document).bind('keyup', function(e) {
+        if (event.keyCode == 13) {
+            checklogin();
+        }
+    });
+
+    function checklogin(){
+
+        var usm=$('#usm').val();
+        var psd=$('#psd').val();
+
+        $.ajax({
+            url:"admin/login/index",
+            data:{username:usm,password:psd},//传递到处理页面的值，也是JSON数据，要用{}。如果传2个值就在{}里面加逗号，再写另外1个值。
+            type:"POST",
+            dataType:"json",
+            success:function(data){
+                if(data.status !== 200){
+                   layer.msg(data.msg);
+                   return false;
+                }
+                window.location.href="/admin/index/index";
+            },
+
+        });
+    }
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

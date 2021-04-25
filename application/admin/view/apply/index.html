@@ -1,0 +1,174 @@
+<div class="layui-card-body" id="demoTable">
+    <form class="layui-form layui-col-space5">
+        <div class="layui-input-inline layui-show-xs-block">
+            <select name="status" id="status">
+                <option value="0">status</option>
+                <option value="2">pending</option>
+                <option value="1">passed</option>
+            </select>
+        </div>
+        <div class="layui-input-inline layui-show-xs-block">
+            <a class="layui-btn" data-type="reload">
+                <i class="layui-icon">&#xe615;</i></a>
+        </div>
+    </form>
+</div>
+
+<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="pass">pass</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="refuse">refuse</a>
+</script>
+<style>
+    body{margin: 10px;}
+    .demo-carousel{height: 200px; line-height: 200px; text-align: center;}
+</style>
+<script src="__PUBLIC__/lib/layui/dist/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
+        var laydate = layui.laydate //日期
+            ,laypage = layui.laypage //分页
+            ,layer = layui.layer //弹层
+            ,table = layui.table //表格
+            ,carousel = layui.carousel //轮播
+            ,upload = layui.upload //上传
+            ,element = layui.element //元素操作
+
+
+
+        //监听Tab切换
+        element.on('tab(LAY_table_user)', function(data){
+            layer.tips('切换了 '+ data.index +'：'+ this.innerHTML, this, {
+                tips: 1
+            });
+        });
+        //方法级渲染
+        table.render({
+            elem: '#LAY_table_user'
+            ,url: "/admin/apply/index"
+            ,limits:[20,30,40]
+            ,cols: [[
+                {field:'id', title: 'ID', width:'5%', sort: true}
+                ,{field:'user_name', title: 'applicant'}
+                ,{field:'email', title: 'email'}
+                ,{field:'animal_name', title: 'animal_name'}
+                ,{field:'animal_images', title: 'animal_images', templet:"#mps"}
+                ,{field:'status', title: 'status'}
+                ,{width: 165, align:'center', toolbar: '#barDemo'}
+            ]]
+            ,id: 'testReload'
+            ,page: true
+            ,height: 'full-90'
+        });
+        //监听头工具栏事件
+        table.on('toolbar(user)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id)
+                ,data = checkStatus.data; //获取选中的数据
+            switch(obj.event){
+                case 'add':
+                    layer.msg('添加');
+                    break;
+                case 'update':
+                    if(data.length === 0){
+                        layer.msg('请选择一行');
+                    } else if(data.length > 1){
+                        layer.msg('只能同时编辑一个');
+                    } else {
+                        layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
+                    }
+                    break;
+                case 'delete':
+                    if(data.length === 0){
+                        layer.msg('请选择一行');
+                    } else {
+                        layer.msg('删除');
+                    }
+                    break;
+            };
+        });
+        //监听工具条
+        table.on('tool(user)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+            if(layEvent === 'detail'){
+                layer.msg('查看操作333');
+            } else if(layEvent === 'refuse'){
+                layer.confirm('confirm refuse', function(index){
+                    var id=data.id;
+
+                    $.ajax({
+                        url:"/admin/apply/refuse",
+                        data:{id:id},//传递到处理页面的值，也是JSON数据，要用{}。如果传2个值就在{}里面加逗号，再写另外1个值。
+                        type:"POST",
+                        dataType:"json",
+                        success:function(data){
+                            if(data.status !== 200){
+                                layer.msg(data.msg);
+                                return false;
+                            }
+                            layer.msg(data.msg);
+                            obj.del(); //删除对应行（tr）的DOM结构
+                            layer.close(index);
+                        },
+
+                    });
+
+                    //向服务端发送删除指令
+                });
+            } else if(layEvent === 'pass'){
+                var ids =data.id;
+                layer.confirm('confirm pass ?', function(index){
+                    var id=data.id;
+
+                    $.ajax({
+                        url:"/admin/apply/pass",
+                        data:{id:id},//传递到处理页面的值，也是JSON数据，要用{}。如果传2个值就在{}里面加逗号，再写另外1个值。
+                        type:"POST",
+                        dataType:"json",
+                        success:function(data){
+                            if(data.status !== 200){
+                                layer.msg(data.msg);
+                                return false;
+                            }
+                            layer.msg(data.msg);
+                            return false;
+                        },
+
+                    });
+
+                    //向服务端发送删除指令
+                });
+            }
+        });
+        var $ = layui.$, active = {
+            reload: function(){
+                var status = $('#status');
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                            status: status.val(),
+                        }
+                    }
+                });
+            }
+        };
+
+        $('#demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+
+<script type="text/html" id="mps">
+    <img width="280px" height="150px" src="/{{d.animal_images}}" >
+</script>
+
+
+
+

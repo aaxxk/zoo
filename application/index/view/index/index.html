@@ -1,0 +1,523 @@
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<!-- banner -->
+<div id="home">
+    <!-- color scheme -->
+    <div class="blast-box">
+        <div class="blast-frame">
+            <p>color schemes</p>
+            <div class="blast-colors d-flex justify-content-center">
+                <div class="blast-color">#23d48f</div>
+                <div class="blast-color">#d3b800</div>
+                <div class="blast-color">#18e7d3</div>
+                <div class="blast-color">#e5902a</div>
+                <div class="blast-color">#16d9e9</div>
+                <!-- you can add more colors here -->
+            </div>
+            <p class="blast-custom-colors">Choose Custom color</p>
+            <input type="color" name="blastCustomColor" value="#d3b800">
+
+        </div>
+        <div class="blast-icon"><span class="fa fa-paint-brush" aria-hidden="true"></span></div>
+    </div>
+    <!-- //color scheme -->
+    <!-- header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-expand-lg navbar-light navbar-fixed-top">
+            <h1>
+                <a class="navbar-brand" href="index.html" data-blast="color">
+                    Aston Wildlife Sanctuary
+                </a>
+            </h1>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-lg-auto text-center">
+                    <li class="nav-item active">
+                    </li>
+                    <li class="nav-item dropdown mt-lg-0 mt-3">
+                    </li>
+                    <li class="nav-item  mt-lg-0 mt-3">
+                    </li>
+                </ul>
+                <button type="button" class="btn  wthree-link-bnr bg-theme rounded-circle text-center mt-lg-0 mt-3" data-toggle="modal"
+                        aria-pressed="false" data-target="#exampleModal" data-blast="bgColor"> <span class="fa fa-user text-white"></span>
+                </button>
+            </div>
+
+        </nav>
+    </header>
+    <!-- //header -->
+    <div class="callbacks_container">
+        <ul class="rslides" id="slider3">
+            <li class="banner banner1">
+                <div class="container">
+                    <div class="banner-text">
+                        <div class="slider-info">
+                            <h3>protect wildlife</h3>
+                            <span class="line"></span>
+                            <p>We move the world to protect animals</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="banner banner2">
+                <div class="container">
+                    <div class="banner-text">
+                        <div class="slider-info">
+                            <h3>animals foundation</h3>
+                            <span class="line"></span>
+                            <p>We move the world to protect animals</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="banner banner3">
+                <div class="container">
+                    <div class="banner-text">
+                        <div class="slider-info">
+                            <h3>discover creature</h3>
+                            <span class="line"></span>
+                            <p>We move the world to protect animals</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- //pricing plans -->
+<!-- login  -->
+<?php if(!empty($member)){ ?>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">userInfo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" class="p-sm-3" id="logout">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Username</label>
+                        <input type="text" class="form-control" placeholder="" disabled  name="user_name" value="{$member['user_name']}"
+                               required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-form-label">Email</label>
+                        <input type="text" class="form-control" disabled placeholder="" value="{$member['email']}"
+                               required="">
+                    </div>
+                    <div class="right-w3l">
+                        <input style="background: #333;color: #fff;" type="button" onclick="animal();" class="form-control" value="My adopted animal">
+                    </div>
+                    <div class="right-w3l">
+                        <input style="background: #333;color: #fff;" type="button" onclick="record();" class="form-control" value="My application record">
+                    </div>
+                    <div class="right-w3l">
+                        <input style="background: #333;color: #fff;" type="button" onclick="logout();" class="form-control" value="LogOut">
+                    </div>
+                    <script>
+                        function record(){
+                            location = "index/user/record";
+                        }
+                        function animal(){
+                            location = "index/user/animal";
+                        }
+                        function logout(){
+                            $.ajax({
+                                type:"POST",
+                                url:"index/user/logout",
+                                dataType:"json",
+                                data:$("#logout").serialize(),
+                                success:function(res){
+                                    if(res.status === 200){
+                                        alert(res.msg);
+                                        location.reload();
+                                        return true;
+                                    }
+                                    alert(res.msg);
+                                }
+                            });
+                        }
+                    </script>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php }else{ ?>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Signin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" class="p-sm-3" id="loginform">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Username</label>
+                        <input type="text" class="form-control" placeholder="" name="user_name" id="recipient-name"
+                               required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-form-label">Password</label>
+                        <input type="password" class="form-control" placeholder="" name="password" id="password"
+                               required="">
+                    </div>
+                    <div class="right-w3l">
+                        <input style="background: #333;color: #fff;" type="button" onclick="login();" class="form-control" value="Login">
+                    </div>
+
+                    <p class="text-center dont-do modal-footer1">Don't have an account?
+                        <a href="#" data-toggle="modal" data-target="#exampleModal1" class="font-weight-bold"
+                           data-blast="color">
+                            Register Now</a>
+                    </p>
+                    <script>
+                        function login(){
+                            $.ajax({
+                                type:"POST",
+                                url:"index/user/login",
+                                dataType:"json",
+                                data:$("#loginform").serialize(),
+                                success:function(res){
+                                    if(res.status === 200){
+                                        alert(res.msg);
+                                        location.reload();
+                                        return true;
+                                    }
+                                    alert(res.msg);
+                                }
+                            });
+                        }
+                    </script>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php }?>
+<!-- //login -->
+<!-- register -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Register</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" class="p-sm-3" id="regform">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Username</label>
+                        <input type="text" id="user_name" class="form-control" placeholder="" name="user_name" id="recipient-rname"
+                               required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-email" class="col-form-label">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="" name="email" id="recipient-email"
+                               required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="password1" class="col-form-label">Password</label>
+                        <input type="password" class="form-control" placeholder="" name="password" id="password1"
+                               required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="password2" class="col-form-label">Confirm Password</label>
+                        <input type="password" class="form-control" placeholder="" name="confirm_password" id="password2"
+                               required="">
+                    </div>
+                    <div class="right-w3l">
+                        <input style="background: #333;color: #fff;" type="button" onclick="register();" class="form-control" value="Register">
+                    </div>
+                    <script>
+
+                        function register(){
+                            var strEmail = $("#email").val();
+                            var user_name = $("#user_name").val();
+                            var password = $("#password1").val();
+                            if(!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(strEmail)){
+                                    alert('Email format error! ');
+                                    return false;
+                            }
+                            if(strEmail.length > 25){
+                                alert('Mailbox maximum 25 fields! ');
+                                return false;
+                            }
+                            if(user_name.length > 16 || user_name.length < 4){
+                                alert('Accounts cannot be more than 16 or less than 4! ');
+                                return false;
+                            }
+                            if(password.length > 16 || password.length < 4){
+                                alert('Password cannot be more than 16 or less than 4! ');
+                                return false;
+                            }
+                            console.log(strEmail);
+                            $.ajax({
+                                type:"POST",
+                                url:"index/user/register",
+                                dataType:"json",
+                                data:$("#regform").serialize(),
+                                success:function(res){
+                                    if(res.status === 200){
+                                        alert(res.msg);
+                                        location.reload();
+                                        return true;
+                                    }
+                                    alert(res.msg);
+                                }
+                            });
+                        }
+                    </script>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- // register -->
+<!-- blog modal1 -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-theme">
+                <h5 class="modal-title" id="exampleModalLabel2">Cras ultricies ligula sed.</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="__PUBLIC__/images/g1.jpg" class="img-fluid" alt="" />
+                <p class="text-left my-4">
+                    Quisque velit nisi, pretium ut lacinia in, elementum id enim. Curabitur non nulla sit amet
+                    nisl
+                    tempus convallis quis ac
+                    lectus. Cras ultricies ligula sed magna dictum porta.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //blog modal1 -->
+<!-- blog modal2 -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-theme">
+                <h5 class="modal-title" id="exampleModalLabel3">Cras ultricies ligula sed.</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="__PUBLIC__/images/g2.jpg" class="img-fluid" alt="" />
+                <p class="text-left my-4">
+                    Quisque velit nisi, pretium ut lacinia in, elementum id enim. Curabitur non nulla sit amet
+                    nisl
+                    tempus convallis quis ac
+                    lectus. Cras ultricies ligula sed magna dictum porta.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //blog modal2 -->
+<!-- blog modal3 -->
+<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel4"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-theme">
+                <h5 class="modal-title" id="exampleModalLabel4">Cras ultricies ligula sed magna.</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="__PUBLIC__/images/g3.jpg" class="img-fluid" alt="" />
+                <p class="text-left my-4">
+                    Quisque velit nisi, pretium ut lacinia in, elementum id enim. Curabitur non nulla sit amet
+                    nisl
+                    tempus convallis quis ac
+                    lectus. Cras ultricies ligula sed magna dictum porta.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //blog modal3-->
+<!-- blog -->
+<section class="blog_w3ls pb-lg-5 pb-4" id="posts">
+    <div class="container py-sm-5 py-4">
+        <div class="title-desc text-center pb-sm-3 mb-lg-5">
+            <h3 class="main-title-w3pvt">Animal</h3>
+            <p>Helping animals & working on environmental issues.</p>
+        </div>
+        <div class="row mt-4">
+            <!-- blog grid -->
+            {volist name="animal" id="alist"}
+            <div class="col-lg-4 col-md-6 mt-sm-0 mt-4" style="margin-bottom: 25px;">
+                <div class="card">
+                    <div class="card-header p-0 position-relative">
+                        <a href="#exampleModal2" data-toggle="modal" aria-pressed="false" data-target="#exampleModa"
+                           role="button">
+                            <img class="card-img-bottom" src="/{$alist.images}" alt="Card image cap">
+                            <span class="fa fa-user post-icon bg-theme" aria-hidden="true" data-blast="bgColor"></span>
+
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="blog-title card-title font-weight-bold">
+                            <a href="#exampleModal2" data-toggle="modal" aria-pressed="false" data-target="#exampleModal2"
+                               role="button">{$alist.name}</a>
+                        </h5>
+                        <p>{$alist.avail}</p>
+                        <label class="mt-2"> <span class="fa fa-calendar mr-3"></span>BIRTH:{$alist.birth}</label>
+                        <input value="Application" type="button" onclick="apply({$alist['id']})" class="btn blog-btn wthree-bnr-btn" data-toggle="modal" aria-pressed="false"
+                                >
+
+                    </div>
+                </div>
+            </div>
+            {/volist}
+            <script>
+                function apply(id){
+                    var ids = id;
+                    $.ajax({
+                        type:"POST",
+                        url:"index/user/apply",
+                        dataType:"json",
+                        data:{id:ids},
+                        success:function(res){
+                            if(res.status === 200){
+                                alert(res.msg);
+                                location.reload();
+                                return true;
+                            }
+                            alert(res.msg);
+                        }
+                    });
+                }
+            </script>
+            <!-- //blog grid -->
+
+        </div>
+    </div>
+</section>
+<!-- //blog -->
+<!-- js -->
+<script src="__PUBLIC__/js/jquery-2.2.3.min.js"></script>
+<!-- //js -->
+<!-- script for password match -->
+<script>
+    window.onload = function () {
+        document.getElementById("password1").onchange = validatePassword;
+        document.getElementById("password2").onchange = validatePassword;
+    }
+
+    function validatePassword() {
+        var pass2 = document.getElementById("password2").value;
+        var pass1 = document.getElementById("password1").value;
+        if (pass1 != pass2)
+            document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+        else
+            document.getElementById("password2").setCustomValidity('');
+        //empty string means no validation error
+    }
+</script>
+<!-- script for password match -->
+<!-- Banner  Responsiveslides -->
+<script src="__PUBLIC__/js/responsiveslides.min.js"></script>
+<script>
+    // You can also use"$(window).load(function() {"
+    $(function () {
+        // Slideshow 4
+        $("#slider3").responsiveSlides({
+            auto: true,
+            pager: true,
+            nav: false,
+            speed: 500,
+            namespace: "callbacks",
+            before: function () {
+                $('.events').append("<li>before event fired.</li>");
+            },
+            after: function () {
+                $('.events').append("<li>after event fired.</li>");
+            }
+        });
+
+    });
+</script>
+<!-- //Banner  Responsiveslides -->
+<!-- Scrolling Nav JavaScript -->
+<script src="__PUBLIC__/js/scrolling-nav.js"></script>
+<script src="__PUBLIC__/js/counter.js"></script>
+<!-- portfolio -->
+<script src="__PUBLIC__/js/jquery.picEyes.js"></script>
+<script>
+    $(function () {
+        //picturesEyes($('.demo li'));
+        $('.demo li').picEyes();
+    });
+</script>
+<!-- //portfolio -->
+<!-- start-smooth-scrolling -->
+<script src="__PUBLIC__/js/move-top.js"></script>
+<script src="__PUBLIC__/js/easing.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        $(".scroll").click(function (event) {
+            event.preventDefault();
+
+            $('html,body').animate({
+                scrollTop: $(this.hash).offset().top
+            }, 1000);
+        });
+    });
+</script>
+<!-- //end-smooth-scrolling -->
+<!-- smooth-scrolling-of-move-up -->
+<script>
+    $(document).ready(function () {
+        /*
+        var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+        };
+        */
+        $().UItoTop({
+            easingType: 'easeOutQuart'
+        });
+
+    });
+</script>
+<script src="__PUBLIC__/js/SmoothScroll.min.js"></script>
+<!-- //smooth-scrolling-of-move-up -->
+<!-- color switch -->
+<script src="__PUBLIC__/js/blast.min.js"></script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+<style>
+    .copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
+</style>
+</body>
+
+</html>

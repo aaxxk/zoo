@@ -1,0 +1,36 @@
+<!-- pricing plans -->
+<section class="py-lg-5 py-4" id="plans">
+    <div class="container py-md-5">
+        <div class="right-w3l">
+            <input onclick="javascript:window.location.href='/'" style="background: #333;color: #fff;width: 200px;" type="button" class="form-control" value="Back">
+        </div>
+        <div class="title-desc text-center pb-sm-3">
+            <h3 class="main-title-w3pvt">My application record</h3>
+        </div>
+
+        <div class="row price-row">
+            {volist name="user_record" id="ulist"}
+            <div class="col-lg-4 col-sm-6 column mb-lg-0 mb-4" >
+                <div class="box" data-blast="borderColor" style="margin: 30px;">
+                    <div class="title">
+                        <img src="{$ulist.animal_image}" style="width: 200px;height: 200px">
+                    </div>
+                    <div class="price">
+                        <h6>{$ulist.animal_name}</h6>
+                    </div>
+                    <div class="option">
+                        <ul>
+                            <li>BIRTH : {$ulist.birth}</li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn w3ls-btn bg-theme  d-block" data-toggle="modal" aria-pressed="false"
+                            data-target="#exampleModal" >
+                        {$ulist.status}
+                    </button>
+                </div>
+            </div>
+            {/volist}
+        </div>
+    </div>
+</section>
+<!-- //pricing plans -->
