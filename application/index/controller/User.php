@@ -29,7 +29,7 @@ class User extends Base{
 
         foreach($user_record as $k=>$v){
             $animal_info = $animal->getInfo($v['aid']);
-            $user_record[$k]['animal_image'] = !empty($animal_info['images']) ? Static_Url.$animal_info['images'] : '';
+            $user_record[$k]['animal_image'] = !empty($animal_info['images']) ? '/'.$animal_info['images'] : '';
             $user_record[$k]['animal_name'] = !empty($animal_info['name']) ? $animal_info['name'] : '';
             $user_record[$k]['birth'] = !empty($animal_info['birth']) ? $animal_info['birth'] : '';
             $user_record[$k]['status'] = $v['status'] == 1 ? "PASS" : ($v['status'] == 0 ? "PENDING" : "DENIED");
