@@ -67,7 +67,7 @@ class Comapi extends MyController
         }
         $msg['status']=1;
         $msg['msg']='Uploaded successfully';
-        $msg['savePath']=substr($Path,12);
+        $msg['savePath']=substr($Path,29);
         $msg['name']=$fileName;
         $msg['lastfix']=$last;
         $msg['size']=$upfile['size'];
