@@ -14,14 +14,14 @@ namespace think\db;
 class Expression
 {
     /**
-     * 查询表达式
+     * Query expression
      *
      * @var string
      */
     protected $value;
 
     /**
-     * 创建一个查询表达式
+     * Create a query expression
      *
      * @param  string  $value
      * @return void
@@ -32,7 +32,7 @@ class Expression
     }
 
     /**
-     * 获取表达式
+     * Get expression
      *
      * @return string
      */

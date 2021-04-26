@@ -31,7 +31,7 @@ class Autoload extends Command
         $classmapFile = <<<EOF
 <?php
 /**
- * 类库映射
+ * Class library mapping
  */
 
 return [

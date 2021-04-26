@@ -18,14 +18,14 @@ use think\Model;
 class BelongsTo extends OneToOne
 {
     /**
-     * 构造函数
+     * Constructor
      * @access public
-     * @param Model  $parent 上级模型对象
-     * @param string $model 模型名
-     * @param string $foreignKey 关联外键
-     * @param string $localKey 关联主键
-     * @param string $joinType JOIN类型
-     * @param string $relation  关联名
+     * @param Model  $parent Superior model object
+     * @param string $model Model name
+     * @param string $foreignKey Associative foreign key
+     * @param string $localKey Associated primary key
+     * @param string $joinType JOIN type
+     * @param string $relation  Association name
      */
     public function __construct(Model $parent, $model, $foreignKey, $localKey, $joinType = 'INNER', $relation = null)
     {
@@ -39,9 +39,9 @@ class BelongsTo extends OneToOne
     }
 
     /**
-     * 延迟获取关联数据
-     * @param string   $subRelation 子关联名
-     * @param \Closure $closure     闭包查询条件
+     * Delay in obtaining associated data
+     * @param string   $subRelation Child association name
+     * @param \Closure $closure     Closure query conditions
      * @access public
      * @return array|false|\PDOStatement|string|Model
      */
@@ -65,11 +65,11 @@ class BelongsTo extends OneToOne
     }
 
     /**
-     * 根据关联条件查询当前模型
+     * Query the current model based on the associated conditions
      * @access public
-     * @param string  $operator 比较操作符
-     * @param integer $count    个数
-     * @param string  $id       关联表的统计字段
+     * @param string  $operator Comparison operator
+     * @param integer $count    Number
+     * @param string  $id       Statistics field of the related table
      * @return Query
      */
     public function has($operator = '>=', $count = 1, $id = '*')
@@ -78,10 +78,10 @@ class BelongsTo extends OneToOne
     }
 
     /**
-     * 根据关联条件查询当前模型
+     * Query the current model based on the associated conditions
      * @access public
-     * @param  mixed  $where 查询条件（数组或者闭包）
-     * @param  mixed  $fields   字段
+     * @param  mixed  $where Query conditions (array or closure)
+     * @param  mixed  $fields   Field
      * @return Query
      */
     public function hasWhere($where = [], $fields = null)
@@ -107,12 +107,12 @@ class BelongsTo extends OneToOne
     }
 
     /**
-     * 预载入关联查询（数据集）
+     * Preload related queries (data sets)
      * @access public
-     * @param array     $resultSet 数据集
-     * @param string    $relation 当前关联名
-     * @param string    $subRelation 子关联名
-     * @param \Closure  $closure 闭包
+     * @param array     $resultSet data set
+     * @param string    $relation Current association name
+     * @param string    $subRelation Child association name
+     * @param \Closure  $closure Closure
      * @return void
      */
     protected function eagerlySet(&$resultSet, $relation, $subRelation, $closure)
@@ -122,7 +122,7 @@ class BelongsTo extends OneToOne
 
         $range = [];
         foreach ($resultSet as $result) {
-            // 获取关联外键列表
+            // Get a list of associated foreign keys
             if (isset($result->$foreignKey)) {
                 $range[] = $result->$foreignKey;
             }
@@ -136,11 +136,11 @@ class BelongsTo extends OneToOne
                     $range,
                 ],
             ], $localKey, $relation, $subRelation, $closure);
-            // 关联属性名
+            // Associated attribute name
             $attr = Loader::parseName($relation);
-            // 关联数据封装
+            // Linked Data Encapsulation
             foreach ($resultSet as $result) {
-                // 关联模型
+                // Association model
                 if (!isset($data[$result->$foreignKey])) {
                     $relationModel = null;
                 } else {
@@ -150,10 +150,10 @@ class BelongsTo extends OneToOne
                 }
 
                 if (!empty($this->bindAttr)) {
-                    // 绑定关联属性
+                    // Binding associated attributes
                     $this->bindAttr($relationModel, $result, $this->bindAttr);
                 } else {
-                    // 设置关联属性
+                    // Set association properties
                     $result->setRelation($attr, $relationModel);
                 }
             }
@@ -161,12 +161,12 @@ class BelongsTo extends OneToOne
     }
 
     /**
-     * 预载入关联查询（数据）
+     * Preload related queries (data)
      * @access public
-     * @param Model     $result 数据对象
-     * @param string    $relation 当前关联名
-     * @param string    $subRelation 子关联名
-     * @param \Closure  $closure 闭包
+     * @param Model     $result Data object
+     * @param string    $relation Current association name
+     * @param string    $subRelation Child association name
+     * @param \Closure  $closure Closure
      * @return void
      */
     protected function eagerlyOne(&$result, $relation, $subRelation, $closure)
@@ -175,7 +175,7 @@ class BelongsTo extends OneToOne
         $foreignKey = $this->foreignKey;
         $this->query->removeWhereField($localKey);
         $data = $this->eagerlyWhere($this->query, [$localKey => $result->$foreignKey], $localKey, $relation, $subRelation, $closure);
-        // 关联模型
+        // Association model
         if (!isset($data[$result->$foreignKey])) {
             $relationModel = null;
         } else {
@@ -184,18 +184,18 @@ class BelongsTo extends OneToOne
             $relationModel->isUpdate(true);
         }
         if (!empty($this->bindAttr)) {
-            // 绑定关联属性
+            // Binding associated attributes
             $this->bindAttr($relationModel, $result, $this->bindAttr);
         } else {
-            // 设置关联属性
+            // Set association properties
             $result->setRelation(Loader::parseName($relation), $relationModel);
         }
     }
 
     /**
-     * 添加关联数据
+     * Add associated data
      * @access public
-     * @param Model $model       关联模型对象
+     * @param Model $model       Associated model objects
      * @return Model
      */
     public function associate($model)
@@ -210,7 +210,7 @@ class BelongsTo extends OneToOne
     }
 
     /**
-     * 注销关联数据
+     * Unregister associated data
      * @access public
      * @return Model
      */
@@ -225,7 +225,7 @@ class BelongsTo extends OneToOne
     }
 
     /**
-     * 执行基础查询（仅执行一次）
+     * Perform basic query (execute only once)
      * @access protected
      * @return void
      */
@@ -233,7 +233,7 @@ class BelongsTo extends OneToOne
     {
         if (empty($this->baseQuery)) {
             if (isset($this->parent->{$this->foreignKey})) {
-                // 关联查询带入关联条件
+                // Related query brings in related conditions
                 $this->query->where($this->localKey, '=', $this->parent->{$this->foreignKey});
             }
 

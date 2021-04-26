@@ -21,44 +21,44 @@ class Controller
     use Jump;
 
     /**
-     * @var \think\View 视图类实例
+     * @var \think\View View class instance
      */
     protected $view;
 
     /**
-     * @var \think\Request Request 实例
+     * @var \think\Request Request Instance
      */
     protected $request;
 
     /**
-     * @var bool 验证失败是否抛出异常
+     * @var bool Whether the verification fails to throw an exception
      */
     protected $failException = false;
 
     /**
-     * @var bool 是否批量验证
+     * @var bool Whether batch verification
      */
     protected $batchValidate = false;
 
     /**
-     * @var array 前置操作方法列表
+     * @var array List of pre-operation methods
      */
     protected $beforeActionList = [];
 
     /**
-     * 构造方法
+     * Constructor
      * @access public
-     * @param Request $request Request 对象
+     * @param Request $request Request object
      */
     public function __construct(Request $request = null)
     {
         $this->view    = View::instance(Config::get('template'), Config::get('view_replace_str'));
         $this->request = is_null($request) ? Request::instance() : $request;
 
-        // 控制器初始化
+        // Controller initialization
         $this->_initialize();
 
-        // 前置操作方法
+        // Pre-operation method
         if ($this->beforeActionList) {
             foreach ($this->beforeActionList as $method => $options) {
                 is_numeric($method) ?
@@ -69,7 +69,7 @@ class Controller
     }
 
     /**
-     * 初始化操作
+     * Initial operation
      * @access protected
      */
     protected function _initialize()
@@ -77,10 +77,10 @@ class Controller
     }
 
     /**
-     * 前置操作
+     * Pre-operation
      * @access protected
-     * @param  string $method  前置操作方法名
-     * @param  array  $options 调用参数 ['only'=>[...]] 或者 ['except'=>[...]]
+     * @param  string $method  Pre-operation method name
+     * @param  array  $options Call parameters ['only'=>[...]] or ['except'=>[...]]
      * @return void
      */
     protected function beforeAction($method, $options = [])
@@ -107,12 +107,12 @@ class Controller
     }
 
     /**
-     * 加载模板输出
+     * Load template output
      * @access protected
-     * @param  string $template 模板文件名
-     * @param  array  $vars     模板输出变量
-     * @param  array  $replace  模板替换
-     * @param  array  $config   模板参数
+     * @param  string $template Template file name
+     * @param  array  $vars     Template output variables
+     * @param  array  $replace  Template replacement
+     * @param  array  $config   Template parameter
      * @return mixed
      */
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
@@ -121,12 +121,12 @@ class Controller
     }
 
     /**
-     * 渲染内容输出
+     * Render content output
      * @access protected
-     * @param  string $content 模板内容
-     * @param  array  $vars    模板输出变量
-     * @param  array  $replace 替换内容
-     * @param  array  $config  模板参数
+     * @param  string $content Template content
+     * @param  array  $vars    Template output variables
+     * @param  array  $replace Replace content
+     * @param  array  $config  Template parameter
      * @return mixed
      */
     protected function display($content = '', $vars = [], $replace = [], $config = [])
@@ -135,10 +135,10 @@ class Controller
     }
 
     /**
-     * 模板变量赋值
+     * Template variable assignment
      * @access protected
-     * @param  mixed $name  要显示的模板变量
-     * @param  mixed $value 变量的值
+     * @param  mixed $name  Template variable to display
+     * @param  mixed $value Variable value
      * @return $this
      */
     protected function assign($name, $value = '')
@@ -149,9 +149,9 @@ class Controller
     }
 
     /**
-     * 初始化模板引擎
+     * Initialize the template engine
      * @access protected
-     * @param array|string $engine 引擎参数
+     * @param array|string $engine Engine parameters
      * @return $this
      */
     protected function engine($engine)
@@ -162,9 +162,9 @@ class Controller
     }
 
     /**
-     * 设置验证失败后是否抛出异常
+     * Set whether to throw an exception after verification fails
      * @access protected
-     * @param bool $fail 是否抛出异常
+     * @param bool $fail Whether to throw an exception
      * @return $this
      */
     protected function validateFailException($fail = true)
@@ -175,13 +175,13 @@ class Controller
     }
 
     /**
-     * 验证数据
+     * verify the data
      * @access protected
-     * @param  array        $data     数据
-     * @param  string|array $validate 验证器名或者验证规则数组
-     * @param  array        $message  提示信息
-     * @param  bool         $batch    是否批量验证
-     * @param  mixed        $callback 回调方法（闭包）
+     * @param  array        $data     data
+     * @param  string|array $validate Validator name or validation rule array
+     * @param  array        $message  Prompt information
+     * @param  bool         $batch    Whether batch verification
+     * @param  mixed        $callback Callback method (closure)
      * @return array|string|true
      * @throws ValidateException
      */
@@ -191,7 +191,7 @@ class Controller
             $v = Loader::validate();
             $v->rule($validate);
         } else {
-            // 支持场景
+            // Support scene
             if (strpos($validate, '.')) {
                 list($validate, $scene) = explode('.', $validate);
             }
@@ -201,17 +201,17 @@ class Controller
             !empty($scene) && $v->scene($scene);
         }
 
-        // 批量验证
+        // Bulk verification
         if ($batch || $this->batchValidate) {
             $v->batch(true);
         }
 
-        // 设置错误信息
+        // Set error message
         if (is_array($message)) {
             $v->message($message);
         }
 
-        // 使用回调验证
+        // Use callback verification
         if ($callback && is_callable($callback)) {
             call_user_func_array($callback, [$v, &$data]);
         }

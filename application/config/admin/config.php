@@ -11,21 +11,21 @@
 
 return [
     // +----------------------------------------------------------------------
-    // | 应用设置
+    // | Application settings
     // +----------------------------------------------------------------------
 
-//替换html中的目录
+//Replace the directory in html
     'view_replace_str'  =>  [
         '__PUBLIC__'=>'/public/static/admin',
         '__ROOT__' => '/',
     ],
-    //加载html中的头尾部
+    //Load the head and tail in html
     'template'  =>  [
         'layout_on'     =>  true,
         'layout_name'   =>  'layout/index',
         'layout_item'   =>  '{__REPLACE__}'
     ],
-    //首页例外
+    //Homepage exception
     'exception'=>[
         //'home'=>'all',
         'home'=>['index','welcome']

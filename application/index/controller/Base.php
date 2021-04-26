@@ -22,7 +22,7 @@ class Base extends Controller {
 
         $session=session('member');
 //        if (empty($session)){
-//            echo "请先登录！";die();
+//            echo "please log in first！";die();
 //        }
         $this->assign('session',$session);
     }

@@ -15,11 +15,11 @@ use PDO;
 use think\db\Connection;
 
 /**
- * Sqlsrv数据库驱动
+ * Sqlsrv database driver
  */
 class Sqlsrv extends Connection
 {
-    // PDO连接参数
+    // PDO connection parameters
     protected $params = [
         PDO::ATTR_CASE              => PDO::CASE_NATURAL,
         PDO::ATTR_ERRMODE           => PDO::ERRMODE_EXCEPTION,
@@ -27,9 +27,9 @@ class Sqlsrv extends Connection
     ];
     protected $builder = '\\think\\db\\builder\\Sqlsrv';
     /**
-     * 解析pdo连接的dsn信息
+     * Parse the dsn information of the pdo connection
      * @access protected
-     * @param array $config 连接信息
+     * @param array $config Connection information
      * @return string
      */
     protected function parseDsn($config)
@@ -42,7 +42,7 @@ class Sqlsrv extends Connection
     }
 
     /**
-     * 取得数据表的字段信息
+     * Get the field information of the data table
      * @access public
      * @param string $tableName
      * @return array
@@ -75,10 +75,10 @@ class Sqlsrv extends Connection
             }
         }
         $sql = "SELECT column_name FROM information_schema.key_column_usage WHERE table_name='$tableName'";
-        // 调试开始
+        // Start of debugging
         $this->debug(true);
         $pdo = $this->linkID->query($sql);
-        // 调试结束
+        // End of debugging
         $this->debug(false, $sql);
         $result = $pdo->fetch(PDO::FETCH_ASSOC);
         if ($result) {
@@ -88,7 +88,7 @@ class Sqlsrv extends Connection
     }
 
     /**
-     * 取得数据表的字段信息
+     * Get the field information of the data table
      * @access public
      * @param string $dbName
      * @return array
@@ -110,7 +110,7 @@ class Sqlsrv extends Connection
     }
 
     /**
-     * SQL性能分析
+     * SQL performance analysis
      * @access protected
      * @param string $sql
      * @return array

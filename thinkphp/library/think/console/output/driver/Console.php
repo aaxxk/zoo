@@ -142,7 +142,7 @@ class Console
     }
 
     /**
-     * 获取终端宽度
+     * Get terminal width
      * @return int|null
      */
     protected function getTerminalWidth()
@@ -153,7 +153,7 @@ class Console
     }
 
     /**
-     * 获取终端高度
+     * Get terminal height
      * @return int|null
      */
     protected function getTerminalHeight()
@@ -164,7 +164,7 @@ class Console
     }
 
     /**
-     * 获取当前终端的尺寸
+     * Get the size of the current terminal
      * @return array
      */
     public function getTerminalDimensions()
@@ -195,7 +195,7 @@ class Console
     }
 
     /**
-     * 获取stty列数
+     * Get the number of stty columns
      * @return string
      */
     private function getSttyColumns()
@@ -218,8 +218,8 @@ class Console
     }
 
     /**
-     * 获取终端模式
-     * @return string <width>x<height> 或 null
+     * Get terminal mode
+     * @return string <width>x<height> or null
      */
     private function getMode()
     {
@@ -296,7 +296,7 @@ class Console
     }
 
     /**
-     * 当前环境是否支持写入控制台输出到stdout.
+     * Whether the current environment supports writing console output to stdout.
      *
      * @return bool
      */
@@ -306,7 +306,7 @@ class Console
     }
 
     /**
-     * 当前环境是否支持写入控制台输出到stderr.
+     * Does the current environment support writing to the console and output to stderr.
      *
      * @return bool
      */
@@ -335,9 +335,9 @@ class Console
     }
 
     /**
-     * 将消息写入到输出。
-     * @param string $message 消息
-     * @param bool   $newline 是否另起一行
+     * Write the message to the output.
+     * @param string $message message
+     * @param bool   $newline Whether to start a new line
      * @param null   $stream
      */
     protected function doWrite($message, $newline, $stream = null)
@@ -353,7 +353,7 @@ class Console
     }
 
     /**
-     * 是否支持着色
+     * Whether to support coloring
      * @param $stream
      * @return bool
      */

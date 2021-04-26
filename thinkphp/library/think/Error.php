@@ -19,7 +19,7 @@ use think\exception\ThrowableError;
 class Error
 {
     /**
-     * 注册异常处理
+     * Registration exception handling
      * @access public
      * @return void
      */
@@ -32,9 +32,9 @@ class Error
     }
 
     /**
-     * 异常处理
+     * Exception handling
      * @access public
-     * @param  \Exception|\Throwable $e 异常
+     * @param  \Exception|\Throwable $e abnormal
      * @return void
      */
     public static function appException($e)
@@ -54,12 +54,12 @@ class Error
     }
 
     /**
-     * 错误处理
+     * Error handling
      * @access public
-     * @param  integer $errno      错误编号
-     * @param  integer $errstr     详细错误信息
-     * @param  string  $errfile    出错的文件
-     * @param  integer $errline    出错行号
+     * @param  integer $errno      Error number
+     * @param  integer $errstr     Detailed error information
+     * @param  string  $errfile    Error file
+     * @param  integer $errline    Error line number
      * @return void
      * @throws ErrorException
      */
@@ -67,7 +67,7 @@ class Error
     {
         $exception = new ErrorException($errno, $errstr, $errfile, $errline);
 
-        // 符合异常处理的则将错误信息托管至 think\exception\ErrorException
+        // The error information will be hosted in think\exception\ErrorException if it meets the exception handling
         if (error_reporting() & $errno) {
             throw $exception;
         }
@@ -76,27 +76,27 @@ class Error
     }
 
     /**
-     * 异常中止处理
+     * Abort processing
      * @access public
      * @return void
      */
     public static function appShutdown()
     {
-        // 将错误信息托管至 think\ErrorException
+        // Host error information to think\ErrorException
         if (!is_null($error = error_get_last()) && self::isFatal($error['type'])) {
             self::appException(new ErrorException(
                 $error['type'], $error['message'], $error['file'], $error['line']
             ));
         }
 
-        // 写入日志
+        // Write log
         Log::save();
     }
 
     /**
-     * 确定错误类型是否致命
+     * Determine whether the error type is fatal
      * @access protected
-     * @param  int $type 错误类型
+     * @param  int $type Type of error
      * @return bool
      */
     protected static function isFatal($type)
@@ -105,7 +105,7 @@ class Error
     }
 
     /**
-     * 获取异常处理的实例
+     * Get an instance of exception handling
      * @access public
      * @return Handle
      */
@@ -114,7 +114,7 @@ class Error
         static $handle;
 
         if (!$handle) {
-            // 异常处理 handle
+            // Exception handling handle
             $class = Config::get('exception_handle');
 
             if ($class && is_string($class) && class_exists($class) &&

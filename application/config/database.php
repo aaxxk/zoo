@@ -10,46 +10,46 @@
 // +----------------------------------------------------------------------
 
 return [
-    // 数据库类型
+    // Database type
     'type'            => 'mysql',
-    // 服务器地址
-    'hostname'        => '127.0.0.1',//数据库host,
-    // 数据库名
-    'database'        => 'u_190174923_db',//数据库名,
-    // 用户名
-    'username'        => 'u-190174923',//数据库账号,
-    // 密码
+    // server address
+    'hostname'        => '127.0.0.1',
+    // database name
+    'database'        => 'u_190174923_db',
+    // username
+    'username'        => 'u-190174923',
+    // password
 
-    'password'        => 'SbY96YpnlqaiFiz',//你的数据库密码,
+    'password'        => 'SbY96YpnlqaiFiz',
 
-    // 端口
+    // port
     'hostport'        => '3306',
-    // 连接dsn
+    // Connect dsn
     'dsn'             => '',
-    // 数据库连接参数
+    // Database connection parameters
     'params'          => [],
-    // 数据库编码默认采用utf8
+    // The database encoding uses utf8 by default
     'charset'         => 'utf8',
-    // 数据库表前缀
+    // Database table prefix
     'prefix'          => 'wt_',
-    // 数据库调试模式
+    // Database debugging mode
     'debug'           => false,
-    // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)
+    // Database deployment method: 0 centralized (single server), 1 distributed (master-slave server)
     'deploy'          => 0,
-    // 数据库读写是否分离 主从式有效
+    // Whether the database read and write are separated, the master-slave mode is effective
     'rw_separate'     => false,
-    // 读写分离后 主服务器数量
+    // Number of main servers after read-write separation
     'master_num'      => 1,
-    // 指定从服务器序号
+    // Specify the serial number of the slave server
     'slave_no'        => '',
-    // 是否严格检查字段是否存在
+    // Whether to strictly check whether the field exists
     'fields_strict'   => true,
-    // 数据集返回类型
+    // Data set return type
     'resultset_type'  => 'array',
-    // 自动写入时间戳字段
+    // Automatically write timestamp field
     'auto_timestamp'  => false,
-    // 时间字段取出后的默认时间格式
+    // The default time format after the time field is retrieved
     'datetime_format' => 'Y-m-d H:i:s',
-    // 是否需要进行SQL性能分析
+    // Do you need SQL performance analysis
     'sql_explain'     => false,
 ];

@@ -12,7 +12,7 @@
 namespace think\cache;
 
 /**
- * 缓存基础类
+ * Cache basic class
  */
 abstract class Driver
 {
@@ -21,70 +21,70 @@ abstract class Driver
     protected $tag;
 
     /**
-     * 判断缓存是否存在
+     * Determine whether the cache exists
      * @access public
-     * @param string $name 缓存变量名
+     * @param string $name Cache variable name
      * @return bool
      */
     abstract public function has($name);
 
     /**
-     * 读取缓存
+     * Read cache
      * @access public
-     * @param string $name 缓存变量名
-     * @param mixed  $default 默认值
+     * @param string $name Cache variable name
+     * @param mixed  $default Defaults
      * @return mixed
      */
     abstract public function get($name, $default = false);
 
     /**
-     * 写入缓存
+     * Write cache
      * @access public
-     * @param string    $name 缓存变量名
-     * @param mixed     $value  存储数据
-     * @param int       $expire  有效时间 0为永久
+     * @param string    $name Cache variable name
+     * @param mixed     $value  Storing data
+     * @param int       $expire  Effective time 0 is permanent
      * @return boolean
      */
     abstract public function set($name, $value, $expire = null);
 
     /**
-     * 自增缓存（针对数值缓存）
+     * Self-incrementing cache (for numeric value cache)
      * @access public
-     * @param string    $name 缓存变量名
-     * @param int       $step 步长
+     * @param string    $name Cache variable name
+     * @param int       $step Step size
      * @return false|int
      */
     abstract public function inc($name, $step = 1);
 
     /**
-     * 自减缓存（针对数值缓存）
+     * Self-decreasing cache (for numeric value cache)
      * @access public
-     * @param string    $name 缓存变量名
-     * @param int       $step 步长
+     * @param string    $name Cache variable name
+     * @param int       $step Step size
      * @return false|int
      */
     abstract public function dec($name, $step = 1);
 
     /**
-     * 删除缓存
+     * Delete cache
      * @access public
-     * @param string $name 缓存变量名
+     * @param string $name Cache variable name
      * @return boolean
      */
     abstract public function rm($name);
 
     /**
-     * 清除缓存
+     * clear cache
      * @access public
-     * @param string $tag 标签名
+     * @param string $tag Label name
      * @return boolean
      */
     abstract public function clear($tag = null);
 
     /**
-     * 获取实际的缓存标识
+     * Get the actual cache ID
      * @access public
-     * @param string $name 缓存名
+     * @param string $name Cache name
      * @return string
      */
     protected function getCacheKey($name)
@@ -93,9 +93,9 @@ abstract class Driver
     }
 
     /**
-     * 读取缓存并删除
+     * Read cache and delete
      * @access public
-     * @param string $name 缓存变量名
+     * @param string $name Cache variable name
      * @return mixed
      */
     public function pull($name)
@@ -110,11 +110,11 @@ abstract class Driver
     }
 
     /**
-     * 如果不存在则写入缓存
+     * If it does not exist, write to the cache
      * @access public
-     * @param string    $name 缓存变量名
-     * @param mixed     $value  存储数据
-     * @param int       $expire  有效时间 0为永久
+     * @param string    $name Cache variable name
+     * @param mixed     $value  Storing data
+     * @param int       $expire  Effective time 0 is permanent
      * @return mixed
      */
     public function remember($name, $value, $expire = null)
@@ -122,21 +122,21 @@ abstract class Driver
         if (!$this->has($name)) {
             $time = time();
             while ($time + 5 > time() && $this->has($name . '_lock')) {
-                // 存在锁定则等待
+                // Wait if there is a lock
                 usleep(200000);
             }
 
             try {
-                // 锁定
+                // locking
                 $this->set($name . '_lock', true);
                 if ($value instanceof \Closure) {
                     $value = call_user_func($value);
                 }
                 $this->set($name, $value, $expire);
-                // 解锁
+                // Unlock
                 $this->rm($name . '_lock');
             } catch (\Exception $e) {
-                // 解锁
+                // Unlock
                 $this->rm($name . '_lock');
                 throw $e;
             } catch (\throwable $e) {
@@ -150,11 +150,11 @@ abstract class Driver
     }
 
     /**
-     * 缓存标签
+     * Cache tag
      * @access public
-     * @param string        $name 标签名
-     * @param string|array  $keys 缓存标识
-     * @param bool          $overlay 是否覆盖
+     * @param string        $name Label name
+     * @param string|array  $keys Cache ID
+     * @param bool          $overlay Whether to cover
      * @return $this
      */
     public function tag($name, $keys = null, $overlay = false)
@@ -180,9 +180,9 @@ abstract class Driver
     }
 
     /**
-     * 更新标签
+     * Update label
      * @access public
-     * @param string $name 缓存标识
+     * @param string $name Cache ID
      * @return void
      */
     protected function setTagItem($name)
@@ -202,9 +202,9 @@ abstract class Driver
     }
 
     /**
-     * 获取标签包含的缓存标识
+     * Get the cache ID contained in the tag
      * @access public
-     * @param string $tag 缓存标签
+     * @param string $tag Cache tag
      * @return array
      */
     protected function getTagItem($tag)
@@ -219,7 +219,7 @@ abstract class Driver
     }
 
     /**
-     * 返回句柄对象，可执行其它高级方法
+     * Return the handle object, perform other advanced methods
      *
      * @access public
      * @return object

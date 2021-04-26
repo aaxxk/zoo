@@ -1,12 +1,12 @@
 <body>
 <div class="x-nav">
       <span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a href="">用户</a>
+        <a href="">Home page</a>
+        <a href="">user</a>
         <a>
-          <cite>用户列表</cite></a>
+          <cite>user list</cite></a>
       </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="Refresh">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
@@ -14,12 +14,12 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>账号</th>
-            <th>真实姓名</th>
-            <th>职业</th>
-            <th>邮箱</th>
-            <th>座右铭</th>
-            <th>操作</th></tr>
+            <th>account number</th>
+            <th>actual name</th>
+            <th>Profession</th>
+            <th>mailbox</th>
+            <th>motto</th>
+            <th>operating</th></tr>
         </thead>
         <tbody>
         {volist name="user" id="ulist"}
@@ -31,10 +31,10 @@
             <td>{$ulist.email}</td>
             <td>{$ulist.motto}</td>
             <td class="td-manage">
-                <a onclick="x_admin_show('修改信息','/admin/user/edit?id={$ulist.user_id}',600,400)" title="修改信息" href="javascript:;">
+                <a onclick="x_admin_show('Modify information','/admin/user/edit?id={$ulist.user_id}',600,400)" title="修改信息" href="javascript:;">
                     <i class="layui-icon">&#xe631;</i>
                 </a>
-                <a title="删除" onclick="member_del(this,'{$ulist.user_id}')" href="javascript:;">
+                <a title="delete" onclick="member_del(this,'{$ulist.user_id}')" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
             </td>
@@ -48,32 +48,32 @@
     layui.use('laydate', function(){
         var laydate = layui.laydate;
 
-        //执行一个laydate实例
+        //Execute a laydate instance
         laydate.render({
-            elem: '#start' //指定元素
+            elem: '#start' //Designated element
         });
 
-        //执行一个laydate实例
+        //Execute a laydate instance
         laydate.render({
-            elem: '#end' //指定元素
+            elem: '#end' //Designated element
         });
     });
 
 
 
-    /*用户-删除*/
+    /*User-delete*/
     function member_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
+        layer.confirm('Are you sure you want to delete？',function(index){
             $.ajax({
                 url:"{:url('admin/user/delete')}",
-                data:{id:id},//传递到处理页面的值，也是JSON数据，要用{}。如果传2个值就在{}里面加逗号，再写另外1个值。
+                data:{id:id},//The value passed to the processing page is also JSON data, so {} is used. If you pass 2 values, add a comma in {} and write another value.
                 type:"POST",
                 dataType:"json",
                 success:function(data){
                     if(data.code==200){
-                        //发异步删除数据
+                        //Send and delete data asynchronously
                         $(obj).parents("tr").remove();
-                        layer.msg('已删除!',{icon:1,time:1000});
+                        layer.msg('deleted!',{icon:1,time:1000});
                     }
 
                 },

@@ -11,237 +11,237 @@
 define('Static_Url','https://cs2410-web01pvm.aston.ac.uk');
 return [
     // +----------------------------------------------------------------------
-    // | 应用设置
+    // | Application settings
     // +----------------------------------------------------------------------
 
-    // 应用调试模式
+    // Application debugging mode
     'app_debug'              => true,
-    // 应用Trace
+    // Application Trace
     'app_trace'              => false,
-    // 应用模式状态
+    // Application mode status
     'app_status'             => '',
-    // 是否支持多模块
+    // Whether to support multiple modules
     'app_multi_module'       => true,
-    // 入口自动绑定模块
+    // Entrance automatic binding module
     'auto_bind_module'       => false,
-    // 注册的根命名空间
+    // Registered root namespace
     'root_namespace'         => [],
-    // 扩展函数文件
+    // Extended function file
     'extra_file_list'        => [THINK_PATH . 'helper' . EXT],
-    // 默认输出类型
+    // Default output type
     'default_return_type'    => 'html',
-    // 默认AJAX 数据返回格式,可选json xml ...
+    // Default AJAX data return format, optional json xml...
     'default_ajax_return'    => 'json',
-    // 默认JSONP格式返回的处理方法
+    // The processing method returned by the default JSONP format
     'default_jsonp_handler'  => 'jsonpReturn',
-    // 默认JSONP处理方法
+    // Default JSONP processing method
     'var_jsonp_handler'      => 'callback',
-    // 默认时区
+    // Default time zone
     'default_timezone'       => 'PRC',
-    // 是否开启多语言
+    // Whether to open multilingual
     'lang_switch_on'         => false,
-    // 默认全局过滤方法 用逗号分隔多个
+    // The default global filtering method Separate multiple with commas
     'default_filter'         => 'stripslashes',
-    // 默认语言
-    'default_lang'           => 'zh-cn',
-    // 应用类库后缀
+    // default language
+    'default_lang'           => 'en',
+    // Application library suffix
     'class_suffix'           => false,
-    // 控制器类后缀
+    // Controller class suffix
     'controller_suffix'      => false,
 
     // +----------------------------------------------------------------------
-    // | 模块设置
+    // | Module settings
     // +----------------------------------------------------------------------
 
-    // 默认模块名
+    // Default module name
     'default_module'         => 'index',
-    // 禁止访问模块
+    // Block access to modules
     'deny_module_list'       => ['common'],
-    // 默认控制器名
+    // Default controller name
     'default_controller'     => 'Index',
-    // 默认操作名
+    // Default operation name
     'default_action'         => 'index',
-    // 默认验证器
+    // Default validator
     'default_validate'       => '',
-    // 默认的空控制器名
+    // Default empty controller name
     'empty_controller'       => 'Error',
-    // 操作方法后缀
+    // Operation method suffix
     'action_suffix'          => '',
-    // 自动搜索控制器
+    // Automatic search controller
     'controller_auto_search' => false,
 
     // +----------------------------------------------------------------------
-    // | URL设置
+    // | URL settings
     // +----------------------------------------------------------------------
 
-    // PATHINFO变量名 用于兼容模式
+    // PATHINFO variable name for compatibility mode
     'var_pathinfo'           => 's',
-    // 兼容PATH_INFO获取
+    // Compatible with PATH_INFO to obtain
     'pathinfo_fetch'         => ['ORIG_PATH_INFO', 'REDIRECT_PATH_INFO', 'REDIRECT_URL'],
-    // pathinfo分隔符
+    // pathinfo separator
     'pathinfo_depr'          => '/',
-    // URL伪静态后缀
+    // URL pseudo-static suffix
     'url_html_suffix'        => '',
-    // URL普通方式参数 用于自动生成
+    // URL common mode parameters for automatic generation
     'url_common_param'       => false,
-    // URL参数方式 0 按名称成对解析 1 按顺序解析
+    // URL parameter method 0 parsed in pairs by name 1 parsed in order
     'url_param_type'         => 0,
-    // 是否开启路由
+    // Whether to enable routing
     'url_route_on'           => true,
-    // 路由使用完整匹配
+    // Route use full match
     'route_complete_match'   => true,
-    // 路由配置文件（支持配置多个）
+    // Routing configuration file (multiple configurations are supported)
     'route_config_file'      => ['route'],
-    // 是否强制使用路由
+    // Whether to force the use of routing
     'url_route_must'         => false,
-    // 域名部署
+    // Domain deployment
     'url_domain_deploy'      => false,
-    // 域名根，如thinkphp.cn
+    // Domain root, such as thinkphp.cn
     'url_domain_root'        => '',
-    // 是否自动转换URL中的控制器和操作名
+    // Whether to automatically convert the controller and operation name in the URL
     'url_convert'            => true,
-    // 默认的访问控制器层
+    // Default access controller layer
     'url_controller_layer'   => 'controller',
-    // 表单请求类型伪装变量
+    // Form request type camouflage variable
     'var_method'             => '_method',
-    // 表单ajax伪装变量
+    // Form ajax camouflage variable
     'var_ajax'               => '_ajax',
-    // 表单pjax伪装变量
+    // Form pjax camouflage variables
     'var_pjax'               => '_pjax',
-    // 是否开启请求缓存 true自动缓存 支持设置请求缓存规则
+    // Whether to enable request caching true automatic caching Support setting request caching rules
     'request_cache'          => false,
-    // 请求缓存有效期
+    // Request cache validity period
     'request_cache_expire'   => null,
-    // 全局请求缓存排除规则
+    // Global request cache exclusion rules
     'request_cache_except'   => [],
 
     // +----------------------------------------------------------------------
-    // | 模板设置
+    // | Template settings
     // +----------------------------------------------------------------------
 
     'template'               => [
-        // 模板引擎类型 支持 php think 支持扩展
+        // Template engine type support php think support extension
         'type'         => 'Think',
-        // 模板路径
+        // Template path
         'view_path'    => '',
-        // 模板后缀
+        // Template suffix
         'view_suffix'  => 'html',
-        // 模板文件名分隔符
+        // Template file name separator
         'view_depr'    => DS,
-        // 模板引擎普通标签开始标记
+        // Template engine normal tag start tag
         'tpl_begin'    => '{',
-        // 模板引擎普通标签结束标记
+        // Template engine normal tag end tag
         'tpl_end'      => '}',
-        // 标签库标签开始标记
+        // Tag library tag start tag
         'taglib_begin' => '{',
-        // 标签库标签结束标记
+        // Tag library tag end tag
         'taglib_end'   => '}',
     ],
 
-    // 视图输出字符串内容替换
+    // View output string content replacement
     'view_replace_str'       => [],
-    // 默认跳转页面对应的模板文件
+    // The template file corresponding to the default jump page
     'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
     'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
 
     // +----------------------------------------------------------------------
-    // | 异常及错误设置
+    // | Exceptions and error settings
     // +----------------------------------------------------------------------
 
-    // 异常页面的模板文件
+    // Template file for exception page
     'exception_tmpl'         => THINK_PATH . 'tpl' . DS . 'think_exception.tpl',
 
-    // 错误显示信息,非调试模式有效
-    'error_message'          => '页面错误！请稍后再试～',
-    // 显示错误信息
+    // Error display information, valid in non-debug mode
+    'error_message'          => 'Page error! Please try again later~',
+    // Show error message
     'show_error_msg'         => false,
-    // 异常处理handle类 留空使用 \think\exception\Handle
+    // Exception handling handle class Leave blank to use \think\exception\Handle
     'exception_handle'       => '',
 
     // +----------------------------------------------------------------------
-    // | 日志设置
+    // | Log settings
     // +----------------------------------------------------------------------
 
     'log'                    => [
-        // 日志记录方式，内置 file socket 支持扩展
+        // Logging mode, built-in file socket supports extension
         'type'  => 'File',
-        // 日志保存目录
+        // Log save directory
         'path'  => LOG_PATH,
-        // 日志记录级别
+        // Logging level
         'level' => [],
     ],
 
     // +----------------------------------------------------------------------
-    // | Trace设置 开启 app_trace 后 有效
+    // | Trace setting is valid after opening app_trace
     // +----------------------------------------------------------------------
     'trace'                  => [
-        // 内置Html Console 支持扩展
+        // Built-in Html Console supports extension
         'type' => 'Html',
     ],
 
     // +----------------------------------------------------------------------
-    // | 缓存设置
+    // | Cache settings
     // +----------------------------------------------------------------------
 
 //    'cache'                  => [
-//        // 驱动方式
+//        // Drive way
 //        'type'   => 'File',
-//        // 缓存保存目录
+//        // Cache save directory
 //        'path'   => CACHE_PATH,
-//        // 缓存前缀
+//        // Cache prefix
 //        'prefix' => '',
-//        // 缓存有效期 0表示永久缓存
+//        // Cache validity period 0 means permanent cache
 //        'expire' => 0,
 //    ],
     'redis'                  => [
-        // 驱动方式
+        // Drive method
         'type'   => 'redis',
-        // 缓存保存目录
+        // Cache save directory
         'host'   => '127.0.0.1',
-        // 缓存前缀
+        // Cache prefix
         'port' => '6379',
-        // 缓存有效期 0表示永久缓存
+        // Cache validity period 0 means permanent cache
         'password' => '',
         'timeout'=>3600
     ],
 
     // +----------------------------------------------------------------------
-    // | 会话设置
+    // | Session settings
     // +----------------------------------------------------------------------
 
     'session'                => [
         'id'             => '',
-        // SESSION_ID的提交变量,解决flash上传跨域
+        // The submission variable of SESSION_ID, solve flash upload cross-domain
         'var_session_id' => '',
-        // SESSION 前缀
+        // SESSION prefix
         'prefix'         => 'think',
-        // 驱动方式 支持redis memcache memcached
+        // Drive mode support redis memcache memcached
         'type'           => '',
-        // 是否自动开启 SESSION
+        // Whether to automatically open SESSION
         'auto_start'     => true,
     ],
 
     // +----------------------------------------------------------------------
-    // | Cookie设置
+    // | Cookie settings
     // +----------------------------------------------------------------------
     'cookie'                 => [
-        // cookie 名称前缀
+        // cookie Name prefix
         'prefix'    => '',
-        // cookie 保存时间
+        // cookie save time
         'expire'    => 0,
-        // cookie 保存路径
+        // cookie save route
         'path'      => '/',
-        // cookie 有效域名
+        // cookie Valid domain name
         'domain'    => '',
-        //  cookie 启用安全传输
+        //  cookie Enable secure transmission
         'secure'    => false,
-        // httponly设置
+        // httponly setting
         'httponly'  => '',
-        // 是否使用 setcookie
+        // use setcookie or not
         'setcookie' => true,
     ],
 
-    //分页配置
+    //Paging configuration
     'paginate'               => [
         'type'      => 'bootstrap',
         'var_page'  => 'page',

@@ -16,15 +16,15 @@ use think\Exception;
 
 abstract class Builder
 {
-    // connection对象实例
+    // connection object instance
     protected $connection;
-    // 查询对象实例
+    // Query object instance
     protected $query;
 
-    // 数据库表达式
+    // Database expression
     protected $exp = ['eq' => '=', 'neq' => '<>', 'gt' => '>', 'egt' => '>=', 'lt' => '<', 'elt' => '<=', 'notlike' => 'NOT LIKE', 'not like' => 'NOT LIKE', 'like' => 'LIKE', 'in' => 'IN', 'exp' => 'EXP', 'notin' => 'NOT IN', 'not in' => 'NOT IN', 'between' => 'BETWEEN', 'not between' => 'NOT BETWEEN', 'notbetween' => 'NOT BETWEEN', 'exists' => 'EXISTS', 'notexists' => 'NOT EXISTS', 'not exists' => 'NOT EXISTS', 'null' => 'NULL', 'notnull' => 'NOT NULL', 'not null' => 'NOT NULL', '> time' => '> TIME', '< time' => '< TIME', '>= time' => '>= TIME', '<= time' => '<= TIME', 'between time' => 'BETWEEN TIME', 'not between time' => 'NOT BETWEEN TIME', 'notbetween time' => 'NOT BETWEEN TIME'];
 
-    // SQL表达式
+    // SQL expression
     protected $selectSql    = 'SELECT%DISTINCT% %FIELD% FROM %TABLE%%FORCE%%JOIN%%WHERE%%GROUP%%HAVING%%UNION%%ORDER%%LIMIT%%LOCK%%COMMENT%';
     protected $insertSql    = '%INSERT% INTO %TABLE% (%FIELD%) VALUES (%DATA%) %COMMENT%';
     protected $insertAllSql = '%INSERT% INTO %TABLE% (%FIELD%) %DATA% %COMMENT%';
@@ -32,10 +32,10 @@ abstract class Builder
     protected $deleteSql    = 'DELETE FROM %TABLE% %USING% %JOIN% %WHERE% %ORDER%%LIMIT% %LOCK%%COMMENT%';
 
     /**
-     * 构造函数
+     * Constructor
      * @access public
-     * @param Connection    $connection 数据库连接对象实例
-     * @param Query         $query      数据库查询对象实例
+     * @param Connection    $connection Database connection object instance
+     * @param Query         $query      Database query object instance
      */
     public function __construct(Connection $connection, Query $query)
     {
@@ -44,7 +44,7 @@ abstract class Builder
     }
 
     /**
-     * 获取当前的连接对象实例
+     * Get the current connection object instance
      * @access public
      * @return Connection
      */
@@ -54,7 +54,7 @@ abstract class Builder
     }
 
     /**
-     * 获取当前的Query对象实例
+     * Get the current Query object instance
      * @access public
      * @return Query
      */
@@ -64,9 +64,9 @@ abstract class Builder
     }
 
     /**
-     * 将SQL语句中的__TABLE_NAME__字符串替换成带前缀的表名（小写）
+     * Replace the __TABLE_NAME__ string in the SQL statement with the prefixed table name (lowercase)
      * @access protected
-     * @param string $sql sql语句
+     * @param string $sql sql statement
      * @return string
      */
     protected function parseSqlTable($sql)
@@ -75,10 +75,10 @@ abstract class Builder
     }
 
     /**
-     * 数据分析
+     * data analysis
      * @access protected
-     * @param array     $data 数据
-     * @param array     $options 查询参数
+     * @param array     $data data
+     * @param array     $options Query parameter
      * @return array
      * @throws Exception
      */
@@ -88,7 +88,7 @@ abstract class Builder
             return [];
         }
 
-        // 获取绑定信息
+        // Get binding information
         $bind = $this->query->getFieldsBind($options['table']);
         if ('*' == $options['field']) {
             $fields = array_keys($bind);
@@ -103,7 +103,7 @@ abstract class Builder
                 $result[$item] = $val->getValue();
                 continue;
             } elseif (is_object($val) && method_exists($val, '__toString')) {
-                // 对象数据写入
+                // Object data write
                 $val = $val->__toString();
             }
             if (false === strpos($key, '.') && !in_array($key, $fields, true)) {
@@ -124,7 +124,7 @@ abstract class Builder
                         throw new Exception('not support data:[' . $val[0] . ']');
                 }
             } elseif (is_scalar($val)) {
-                // 过滤非标量数据
+                // Filter non-scalar data
                 if (0 === strpos($val, ':') && $this->query->isBind(substr($val, 1))) {
                     $result[$item] = $val;
                 } else {
@@ -138,7 +138,7 @@ abstract class Builder
     }
 
     /**
-     * 字段名分析
+     * Field name analysis
      * @access protected
      * @param string $key
      * @param array  $options
@@ -150,7 +150,7 @@ abstract class Builder
     }
 
     /**
-     * value分析
+     * value analysis
      * @access protected
      * @param mixed     $value
      * @param string    $field
@@ -171,7 +171,7 @@ abstract class Builder
     }
 
     /**
-     * field分析
+     * field analysis
      * @access protected
      * @param mixed     $fields
      * @param array     $options
@@ -182,7 +182,6 @@ abstract class Builder
         if ('*' == $fields || empty($fields)) {
             $fieldsStr = '*';
         } elseif (is_array($fields)) {
-            // 支持 'field1'=>'field2' 这样的字段别名定义
             $array = [];
             foreach ($fields as $key => $field) {
                 if ($field instanceof Expression) {
@@ -199,7 +198,7 @@ abstract class Builder
     }
 
     /**
-     * table分析
+     * table analysis
      * @access protected
      * @param mixed $tables
      * @param array $options
@@ -225,17 +224,17 @@ abstract class Builder
     }
 
     /**
-     * where分析
+     * where analysis
      * @access protected
-     * @param mixed $where   查询条件
-     * @param array $options 查询参数
+     * @param mixed $where   Query conditions
+     * @param array $options Query parameter
      * @return string
      */
     protected function parseWhere($where, $options)
     {
         $whereStr = $this->buildWhere($where, $options);
         if (!empty($options['soft_delete'])) {
-            // 附加软删除条件
+            // Additional soft delete conditions
             list($field, $condition) = $options['soft_delete'];
 
             $binds    = $this->query->getFieldsBind($options['table']);
@@ -246,7 +245,7 @@ abstract class Builder
     }
 
     /**
-     * 生成查询条件SQL
+     * Generate query condition SQL
      * @access public
      * @param mixed     $where
      * @param array     $options
@@ -270,7 +269,7 @@ abstract class Builder
                 if ($value instanceof Expression) {
                     $str[] = ' ' . $key . ' ( ' . $field . ' ' . $value->getValue() . ' )';
                 } elseif ($value instanceof \Closure) {
-                    // 使用闭包查询
+                    // Use closure query
                     $query = new Query($this->connection);
                     call_user_func_array($value, [ & $query]);
                     $whereClause = $this->buildWhere($query->getOptions('where'), $options);
@@ -278,7 +277,7 @@ abstract class Builder
                         $str[] = ' ' . $key . ' ( ' . $whereClause . ' )';
                     }
                 } elseif (strpos($field, '|')) {
-                    // 不同字段使用相同查询条件（OR）
+                    // Use the same query condition for different fields (OR)
                     $array = explode('|', $field);
                     $item  = [];
                     foreach ($array as $k) {
@@ -286,7 +285,7 @@ abstract class Builder
                     }
                     $str[] = ' ' . $key . ' ( ' . implode(' OR ', $item) . ' )';
                 } elseif (strpos($field, '&')) {
-                    // 不同字段使用相同查询条件（AND）
+                    // Use the same query condition for different fields (AND)
                     $array = explode('&', $field);
                     $item  = [];
                     foreach ($array as $k) {
@@ -294,7 +293,7 @@ abstract class Builder
                     }
                     $str[] = ' ' . $key . ' ( ' . implode(' AND ', $item) . ' )';
                 } else {
-                    // 对字段使用表达式查询
+                    // Use expression queries on fields
                     $field = is_string($field) ? $field : '';
                     $str[] = ' ' . $key . ' ' . $this->parseWhereItem($field, $value, $key, $options, $binds);
                 }
@@ -306,22 +305,22 @@ abstract class Builder
         return $whereStr;
     }
 
-    // where子单元分析
+    // where subunit analysis
     protected function parseWhereItem($field, $val, $rule = '', $options = [], $binds = [], $bindName = null)
     {
-        // 字段分析
+        // Field analysis
         $key = $field ? $this->parseKey($field, $options, true) : '';
 
-        // 查询规则和条件
+        // Query rules and conditions
         if (!is_array($val)) {
             $val = is_null($val) ? ['null', ''] : ['=', $val];
         }
         list($exp, $value) = $val;
 
-        // 对一个字段使用多个查询条件
+        // Use multiple query conditions for a field
         if (is_array($exp)) {
             $item = array_pop($val);
-            // 传入 or 或者 and
+            // Pass in or or and
             if (is_string($item) && in_array($item, ['AND', 'and', 'OR', 'or'])) {
                 $rule = $item;
             } else {
@@ -334,7 +333,7 @@ abstract class Builder
             return '( ' . implode(' ' . $rule . ' ', $str) . ' )';
         }
 
-        // 检测操作符
+        // Detection operator
         if (!in_array($exp, $this->exp)) {
             $exp = strtolower($exp);
             if (isset($this->exp[$exp])) {
@@ -345,14 +344,14 @@ abstract class Builder
         }
         $bindName = $bindName ?: 'where_' . $rule . '_' . str_replace(['.', '-'], '_', $field);
         if (preg_match('/\W/', $bindName)) {
-            // 处理带非单词字符的字段名
+            // Handling field names with non-word characters
             $bindName = md5($bindName);
         }
 
         if ($value instanceof Expression) {
 
         } elseif (is_object($value) && method_exists($value, '__toString')) {
-            // 对象数据写入
+            // Object data write
             $value = $value->__toString();
         }
 
@@ -369,14 +368,14 @@ abstract class Builder
 
         $whereStr = '';
         if (in_array($exp, ['=', '<>', '>', '>=', '<', '<='])) {
-            // 比较运算
+            // Comparison operation
             if ($value instanceof \Closure) {
                 $whereStr .= $key . ' ' . $exp . ' ' . $this->parseClosure($value);
             } else {
                 $whereStr .= $key . ' ' . $exp . ' ' . $this->parseValue($value, $field);
             }
         } elseif ('LIKE' == $exp || 'NOT LIKE' == $exp) {
-            // 模糊匹配
+            // Fuzzy matching
             if (is_array($value)) {
                 foreach ($value as $item) {
                     $array[] = $key . ' ' . $exp . ' ' . $this->parseValue($item, $field);
@@ -387,17 +386,17 @@ abstract class Builder
                 $whereStr .= $key . ' ' . $exp . ' ' . $this->parseValue($value, $field);
             }
         } elseif ('EXP' == $exp) {
-            // 表达式查询
+            // Expression query
             if ($value instanceof Expression) {
                 $whereStr .= '( ' . $key . ' ' . $value->getValue() . ' )';
             } else {
                 throw new Exception('where express error:' . $exp);
             }
         } elseif (in_array($exp, ['NOT NULL', 'NULL'])) {
-            // NULL 查询
+            // NULL Inquire
             $whereStr .= $key . ' IS ' . $exp;
         } elseif (in_array($exp, ['NOT IN', 'IN'])) {
-            // IN 查询
+            // IN Inquire
             if ($value instanceof \Closure) {
                 $whereStr .= $key . ' ' . $exp . ' ' . $this->parseClosure($value);
             } else {
@@ -424,7 +423,7 @@ abstract class Builder
                 $whereStr .= $key . ' ' . $exp . ' (' . (empty($zone) ? "''" : $zone) . ')';
             }
         } elseif (in_array($exp, ['NOT BETWEEN', 'BETWEEN'])) {
-            // BETWEEN 查询
+            // BETWEEN Inquire
             $data = is_array($value) ? $value : explode(',', $value);
             if (array_key_exists($field, $binds)) {
                 if ($this->query->isBind($bindName . '_between_1')) {
@@ -445,7 +444,7 @@ abstract class Builder
             }
             $whereStr .= $key . ' ' . $exp . ' ' . $between;
         } elseif (in_array($exp, ['NOT EXISTS', 'EXISTS'])) {
-            // EXISTS 查询
+            // EXISTS Inquire
             if ($value instanceof \Closure) {
                 $whereStr .= $exp . ' ' . $this->parseClosure($value);
             } else {
@@ -463,7 +462,7 @@ abstract class Builder
         return $whereStr;
     }
 
-    // 执行闭包子查询
+    // Execute closure subquery
     protected function parseClosure($call, $show = true)
     {
         $query = new Query($this->connection);
@@ -472,7 +471,7 @@ abstract class Builder
     }
 
     /**
-     * 日期时间条件解析
+     * Date and time condition analysis
      * @access protected
      * @param string    $value
      * @param string    $key
@@ -483,7 +482,7 @@ abstract class Builder
      */
     protected function parseDateTime($value, $key, $options = [], $bindName = null, $bindType = null)
     {
-        // 获取时间字段类型
+        // Get time field type
         if (strpos($key, '.')) {
             list($table, $key) = explode('.', $key);
             if (isset($options['alias']) && $pos = array_search($table, $options['alias'])) {
@@ -502,10 +501,10 @@ abstract class Builder
             }
 
             if (preg_match('/(datetime|timestamp)/is', $info)) {
-                // 日期及时间戳类型
+                // Date and timestamp type
                 $value = date('Y-m-d H:i:s', $value);
             } elseif (preg_match('/(date)/is', $info)) {
-                // 日期及时间戳类型
+                // Date and timestamp type
                 $value = date('Y-m-d', $value);
             }
         }
@@ -520,7 +519,7 @@ abstract class Builder
     }
 
     /**
-     * limit分析
+     * limit analysis
      * @access protected
      * @param mixed $limit
      * @return string
@@ -531,10 +530,10 @@ abstract class Builder
     }
 
     /**
-     * join分析
+     * join analysis
      * @access protected
      * @param array $join
-     * @param array $options 查询条件
+     * @param array $options Query conditions
      * @return string
      */
     protected function parseJoin($join, $options = [])
@@ -563,10 +562,10 @@ abstract class Builder
     }
 
     /**
-     * order分析
+     * order analysis
      * @access protected
      * @param mixed $order
-     * @param array $options 查询条件
+     * @param array $options Query conditions
      * @return string
      */
     protected function parseOrder($order, $options = [])
@@ -598,7 +597,7 @@ abstract class Builder
     }
 
     /**
-     * group分析
+     * group analysis
      * @access protected
      * @param mixed $group
      * @return string
@@ -609,7 +608,7 @@ abstract class Builder
     }
 
     /**
-     * having分析
+     * having analysis
      * @access protected
      * @param string $having
      * @return string
@@ -620,7 +619,7 @@ abstract class Builder
     }
 
     /**
-     * comment分析
+     * comment analysis
      * @access protected
      * @param string $comment
      * @return string
@@ -634,7 +633,7 @@ abstract class Builder
     }
 
     /**
-     * distinct分析
+     * distinct analysis
      * @access protected
      * @param mixed $distinct
      * @return string
@@ -645,7 +644,7 @@ abstract class Builder
     }
 
     /**
-     * union分析
+     * union analysis
      * @access protected
      * @param mixed $union
      * @return string
@@ -668,7 +667,7 @@ abstract class Builder
     }
 
     /**
-     * index分析，可在操作链中指定需要强制使用的索引
+     * Index analysis, you can specify the mandatory index in the operation chain
      * @access protected
      * @param mixed $index
      * @return string
@@ -683,7 +682,7 @@ abstract class Builder
     }
 
     /**
-     * 设置锁机制
+     * Set up the lock mechanism
      * @access protected
      * @param bool|string $lock
      * @return string
@@ -698,9 +697,9 @@ abstract class Builder
     }
 
     /**
-     * 生成查询SQL
+     * Generate query SQL
      * @access public
-     * @param array $options 表达式
+     * @param array $options expression
      * @return string
      */
     public function select($options = [])
@@ -726,16 +725,16 @@ abstract class Builder
     }
 
     /**
-     * 生成insert SQL
+     * Generate insert SQL
      * @access public
-     * @param array     $data 数据
-     * @param array     $options 表达式
-     * @param bool      $replace 是否replace
+     * @param array     $data data
+     * @param array     $options expression
+     * @param bool      $replace Whether to replace
      * @return string
      */
     public function insert(array $data, $options = [], $replace = false)
     {
-        // 分析并处理数据
+        // Analyze and process data
         $data = $this->parseData($data, $options);
         if (empty($data)) {
             return 0;
@@ -757,17 +756,17 @@ abstract class Builder
     }
 
     /**
-     * 生成insertall SQL
+     * Generate insertall SQL
      * @access public
-     * @param array     $dataSet 数据集
-     * @param array     $options 表达式
-     * @param bool      $replace 是否replace
+     * @param array     $dataSet data set
+     * @param array     $options expression
+     * @param bool      $replace Whether to replace
      * @return string
      * @throws Exception
      */
     public function insertAll($dataSet, $options = [], $replace = false)
     {
-        // 获取合法的字段
+        // Get legal fields
         if ('*' == $options['field']) {
             $fields = array_keys($this->query->getFieldsType($options['table']));
         } else {
@@ -786,10 +785,10 @@ abstract class Builder
                 } elseif (is_scalar($val)) {
                     $data[$key] = $this->parseValue($val, $key);
                 } elseif (is_object($val) && method_exists($val, '__toString')) {
-                    // 对象数据写入
+                    // Object data write
                     $data[$key] = $val->__toString();
                 } else {
-                    // 过滤掉非标量数据
+                    // Filter out non-scalar data
                     unset($data[$key]);
                 }
             }
@@ -817,11 +816,11 @@ abstract class Builder
     }
 
     /**
-     * 生成select insert SQL
+     * Generate select insert SQL
      * @access public
-     * @param array     $fields 数据
-     * @param string    $table 数据表
-     * @param array     $options 表达式
+     * @param array     $fields data
+     * @param string    $table data sheet
+     * @param array     $options expression
      * @return string
      */
     public function selectInsert($fields, $table, $options)
@@ -836,10 +835,10 @@ abstract class Builder
     }
 
     /**
-     * 生成update SQL
+     * Generate update SQL
      * @access public
-     * @param array     $data 数据
-     * @param array     $options 表达式
+     * @param array     $data data
+     * @param array     $options expression
      * @return string
      */
     public function update($data, $options)
@@ -870,9 +869,9 @@ abstract class Builder
     }
 
     /**
-     * 生成delete SQL
+     * Generate delete SQL
      * @access public
-     * @param array $options 表达式
+     * @param array $options expression
      * @return string
      */
     public function delete($options)

@@ -7,7 +7,7 @@ use think\newlog\NewLog;
 
 class BaseModel extends Model {
 
-    protected $autoCheckFields = true; //虚拟模型关闭自动检测
+    protected $autoCheckFields = true; //Virtual model turns off automatic detection
 
     /**
      * @param $table
@@ -50,10 +50,10 @@ class BaseModel extends Model {
     }
 
     /**
-     * 原生sql数据查询
-     * @param $sql sql语句
-     * @param array $param 绑定参数，可不传，仅支持传入数组
-     * @return mixed 返回一条数据
+     * Native SQL data query
+     * @param $sql sql statement
+     * @param array $param Binding parameters, you don’t need to pass it, only the array can be passed in
+     * @return mixed Return a piece of data
      */
     public function fetchRow($sql, $param = array()){
         try {
@@ -69,10 +69,10 @@ class BaseModel extends Model {
     }
 
     /**
-     * 原生sql数据查询
-     * @param $sql sql语句
-     * @param array $param 绑定参数，可不传，仅支持传入数组
-     * @return 返回多条数据
+     * Native SQL data query
+     * @param $sql sql statement
+     * @param array $param Binding parameters, you don’t need to pass it, only the array can be passed in
+     * @return Return multiple pieces of data
      */
     public function fetchAll($sql, $param = array()){
         try {
@@ -87,10 +87,10 @@ class BaseModel extends Model {
     }
 
     /**
-     * 原生sql数据执行
-     * @param $sql sql语句
-     * @param $param 绑定参数
-     * @return bool|int 执行sql操作，$record 为true时返回影响的行数，否则返回(bool) false或true
+     * Native SQL data execution
+     * @param $sql sql statement
+     * @param $param Binding parameters
+     * @return bool|int Perform sql operation, return the number of affected rows when $record is true, otherwise return (bool) false or true
      */
     public function native_execute($sql, $param, $record=false){
         try {
@@ -105,9 +105,9 @@ class BaseModel extends Model {
     }
 
     /**
-     * @param $sqlArr sql数组，只支持执行类sql语句
-     * @param $paramArr 参数数组
-     * @return bool sql事务操作，成功返回true，失败返回false
+     * @param $sqlArr sql array, only supports execution of SQL statements
+     * @param $paramArr Parameter array
+     * @return bool sql transaction operation, return true on success, false on failure
      * @throws \think\exception\PDOException
      */
     public function native_transaction($sqlArr, $paramArr){
@@ -192,9 +192,9 @@ class BaseModel extends Model {
     }
 
     /**
-     * @param $table 数据表名
-     * @param $condition 删除sql的条件
-     * @return boolean 成功返回true，失败返回false
+     * @param $table Data table name
+     * @param $condition Conditions for deleting sql
+     * @return boolean Return true on success, false on failure
      * @throws \think\exception\PDOException
      */
     public function think_delete($table, $condition){
@@ -224,7 +224,7 @@ class BaseModel extends Model {
     }
 
     /**
-     * 查询单字段count
+     * Query single field count
      * @param $table
      * @param $param
      * @param string $field
@@ -246,8 +246,8 @@ class BaseModel extends Model {
     }
 
     /**
-     * 获取表最大ID+1
-     * @param string $table 表名
+     * Get the maximum ID of the table+1
+     * @param string $table Table Name
      * @return int
      */
     public function last_sequence_id($table){
@@ -255,24 +255,24 @@ class BaseModel extends Model {
         $result = $this->native_select_one($sql);
 
         if(!$result['num']) {
-            throw_exception('获取主键失败：' . $table, '');
+            throw_exception('Failed to get the primary key:' . $table, '');
         }
         return $result['num'];
     }
 
     /**
-     * 判断是否为SELECT语句
+     * Determine whether it is a SELECT statement
      */
     protected function isSelectSql($sql){
         if(0 !== strpos(strtoupper($sql), 'SELECT')){
-            throw_exception('SQL查询语句不合法：' . $sql, '');
+            throw_exception('The SQL query statement is invalid:' . $sql, '');
         }
 
         return true;
     }
 
     /**
-     * 判断是否为执行类的sql语句
+     * Determine whether it is an execution type sql statement
      */
     protected function isExecuteSql($sql){
         $extArr = array('UPDATE', 'DELETE', 'INSERT INTO');
@@ -284,13 +284,13 @@ class BaseModel extends Model {
             }
         }
 
-        $i != 1 && throw_exception('SQL语句不合法：' . $sql, '');
+        $i != 1 && throw_exception('The SQL statement is invalid:' . $sql, '');
 
         return true;
     }
 
     /**
-     * 原生sql绑定参数
+     * Native SQL binding parameters
      */
     protected function bindParam($sql, $param){
         if(!empty($param) && !is_array($param)){
@@ -304,7 +304,7 @@ class BaseModel extends Model {
             if(strpos($v, "'") === 0 && substr($v, -1) == "'"){
                 $value[] = $v;
             }else{
-                $value[] = "'".$v."'"; //将参数值强制转为带引号的字符串
+                $value[] = "'".$v."'"; //Coerce the parameter value to a quoted string
             }
         }
 

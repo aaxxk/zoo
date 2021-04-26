@@ -11,7 +11,7 @@ use think\Model;
 trait SoftDelete
 {
     /**
-     * 判断当前实例是否被软删除
+     * Determine whether the current instance has been soft deleted
      * @access public
      * @return boolean
      */
@@ -26,7 +26,7 @@ trait SoftDelete
     }
 
     /**
-     * 查询包含软删除的数据
+     * Query data that contains soft deleted
      * @access public
      * @return Query
      */
@@ -36,7 +36,7 @@ trait SoftDelete
     }
 
     /**
-     * 只查询软删除数据
+     * Only query soft deleted data
      * @access public
      * @return Query
      */
@@ -53,9 +53,9 @@ trait SoftDelete
     }
 
     /**
-     * 删除当前的记录
+     * Delete the current record
      * @access public
-     * @param bool $force 是否强制删除
+     * @param bool $force Whether to force deletion
      * @return integer
      */
     public function delete($force = false)
@@ -66,15 +66,15 @@ trait SoftDelete
 
         $name = $this->getDeleteTimeField();
         if ($name && !$force) {
-            // 软删除
+            // Soft delete
             $this->data[$name] = $this->autoWriteTimestamp($name);
             $result            = $this->isUpdate()->save();
         } else {
-            // 强制删除当前模型数据
+            // Force deletion of current model data
             $result = $this->getQuery()->where($this->getWhere())->delete();
         }
 
-        // 关联删除
+        // Association delete
         if (!empty($this->relationWrite)) {
             foreach ($this->relationWrite as $key => $name) {
                 $name   = is_numeric($key) ? $name : $key;
@@ -91,18 +91,18 @@ trait SoftDelete
 
         $this->trigger('after_delete', $this);
 
-        // 清空原始数据
+        // Clear the original data
         $this->origin = [];
 
         return $result;
     }
 
     /**
-     * 删除记录
+     * Delete Record
      * @access public
-     * @param mixed $data  主键列表(支持闭包查询条件)
-     * @param bool  $force 是否强制删除
-     * @return integer 成功删除的记录数
+     * @param mixed $data  Primary key list (supports closure query conditions)
+     * @param bool  $force Whether to force deletion
+     * @return integer Number of records successfully deleted
      */
     public static function destroy($data, $force = false)
     {
@@ -110,7 +110,7 @@ trait SoftDelete
             return 0;
         }
 
-        // 包含软删除数据
+        // Contains soft deleted data
         $query = self::withTrashed();
         if (is_array($data) && key($data) !== 0) {
             $query->where($data);
@@ -132,9 +132,9 @@ trait SoftDelete
     }
 
     /**
-     * 恢复被软删除的记录
+     * Recover soft deleted records
      * @access public
-     * @param array $where 更新条件
+     * @param array $where Update conditions
      * @return integer
      */
     public function restore($where = [])
@@ -147,7 +147,7 @@ trait SoftDelete
         $name = $this->getDeleteTimeField();
 
         if ($name) {
-            // 恢复删除
+            // Undelete
             return $this->getQuery()
                 ->useSoftDelete($name, ['not null', ''])
                 ->where($where)
@@ -158,9 +158,9 @@ trait SoftDelete
     }
 
     /**
-     * 查询默认不包含软删除数据
+     * The query does not contain soft deleted data by default
      * @access protected
-     * @param Query $query 查询对象
+     * @param Query $query Query object
      * @return Query
      */
     protected function base($query)
@@ -170,9 +170,9 @@ trait SoftDelete
     }
 
     /**
-     * 获取软删除字段
+     * Get soft deleted fields
      * @access public
-     * @param bool $read 是否查询操作(写操作的时候会自动去掉表别名)
+     * @param bool $read Whether to query operation (the table alias will be automatically removed when writing)
      * @return string
      */
     protected function getDeleteTimeField($read = false)

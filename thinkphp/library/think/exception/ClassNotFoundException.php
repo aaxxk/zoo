@@ -21,7 +21,7 @@ class ClassNotFoundException extends \RuntimeException
     }
 
     /**
-     * 获取类名
+     * Get the class name
      * @access public
      * @return string
      */

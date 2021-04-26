@@ -2,16 +2,16 @@
     <form class="layui-form layui-col-space5">
         <div class="layui-input-inline layui-show-xs-block">
             <select name="status" id="status">
-                <option value="0">请选择状态</option>
-                <option value="1">上架中</option>
-                <option value="2">下架中</option>
+                <option value="0">Please select status</option>
+                <option value="1">On the shelf</option>
+                <option value="2">Under shelf</option>
             </select>
         </div>
 
         <div class="layui-input-inline layui-show-xs-block">
-            <input type="text" name="title" id="title" placeholder="请输入标题" autocomplete="off" class="layui-input"></div>
+            <input type="text" name="title" id="title" placeholder="Please enter the title" autocomplete="off" class="layui-input"></div>
         <div class="layui-input-inline layui-show-xs-block">
-            <a class="layui-btn layui-btn" onclick="x_admin_show('添加','/admin/animal/add',600,600)">
+            <a class="layui-btn layui-btn" onclick="x_admin_show('add','/admin/animal/add',600,600)">
                 <i class="layui-icon"></i>add</a>
             <a class="layui-btn" data-type="reload">
                 <i class="layui-icon">&#xe615;</i></a>
@@ -29,26 +29,25 @@
     .demo-carousel{height: 200px; line-height: 200px; text-align: center;}
 </style>
 <script src="__PUBLIC__/lib/layui/dist/layui.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
-        var laydate = layui.laydate //日期
-            ,laypage = layui.laypage //分页
-            ,layer = layui.layer //弹层
-            ,table = layui.table //表格
-            ,carousel = layui.carousel //轮播
-            ,upload = layui.upload //上传
-            ,element = layui.element //元素操作
+        var laydate = layui.laydate //date
+            ,laypage = layui.laypage //Pagination
+            ,layer = layui.layer //Bullet layer
+            ,table = layui.table //form
+            ,carousel = layui.carousel //Carousel
+            ,upload = layui.upload //Upload
+            ,element = layui.element //Element operation
 
 
 
-        //监听Tab切换
+        //Monitor Tab switching
         element.on('tab(LAY_table_user)', function(data){
-            layer.tips('切换了 '+ data.index +'：'+ this.innerHTML, this, {
+            layer.tips('Switched '+ data.index +'：'+ this.innerHTML, this, {
                 tips: 1
             });
         });
-        //方法级渲染
+        //Method-level rendering
         table.render({
             elem: '#LAY_table_user'
             ,url: "/admin/animal/index"
@@ -66,45 +65,45 @@
             ,page: true
             ,height: 'full-90'
         });
-        //监听头工具栏事件
+        //Listen to header toolbar events
         table.on('toolbar(user)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id)
-                ,data = checkStatus.data; //获取选中的数据
+                ,data = checkStatus.data; //Get selected data
             switch(obj.event){
                 case 'add':
-                    layer.msg('添加');
+                    layer.msg('add');
                     break;
                 case 'update':
                     if(data.length === 0){
-                        layer.msg('请选择一行');
+                        layer.msg('Please select a row');
                     } else if(data.length > 1){
-                        layer.msg('只能同时编辑一个');
+                        layer.msg('Only one can be edited at the same time');
                     } else {
-                        layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
+                        layer.alert('edit [id]：'+ checkStatus.data[0].id);
                     }
                     break;
                 case 'delete':
                     if(data.length === 0){
-                        layer.msg('请选择一行');
+                        layer.msg('Please select a row');
                     } else {
-                        layer.msg('删除');
+                        layer.msg('delete');
                     }
                     break;
             };
         });
-        //监听工具条
-        table.on('tool(user)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-            var data = obj.data //获得当前行数据
-                ,layEvent = obj.event; //获得 lay-event 对应的值
+        //Monitor toolbar
+        table.on('tool(user)', function(obj){ //Note: tool is the name of the toolbar event, test is the attribute of the original container of the table lay-filter="corresponding value"
+            var data = obj.data //Get the current row data
+                ,layEvent = obj.event; //Get the value corresponding to lay-event
             if(layEvent === 'detail'){
-                layer.msg('查看操作333');
+                layer.msg('View operation 333');
             } else if(layEvent === 'del'){
-                layer.confirm('真的删除行么', function(index){
+                layer.confirm('Really delete it', function(index){
                     var id=data.id;
 
                     $.ajax({
                         url:"/admin/animal/delete",
-                        data:{id:id},//传递到处理页面的值，也是JSON数据，要用{}。如果传2个值就在{}里面加逗号，再写另外1个值。
+                        data:{id:id},//The value passed to the processing page is also JSON data, so {} is used. If you pass 2 values, add a comma in {} and write another value.
                         type:"POST",
                         dataType:"json",
                         success:function(data){
@@ -113,24 +112,24 @@
                                 return false;
                             }
                             layer.msg(data.msg);
-                            obj.del(); //删除对应行（tr）的DOM结构
+                            obj.del(); //Delete the DOM structure of the corresponding row (tr)
                             layer.close(index);
                         },
 
                     });
 
-                    //向服务端发送删除指令
+                    //Send a delete command to the server
                 });
             } else if(layEvent === 'edit'){
                 var ids =data.id;
                 layer.open({
                     type: 2,
                     title: false,
-                    closeBtn: 1, //不显示关闭按钮
+                    closeBtn: 1, //Do not show the close button
                     shade: [0],
                     area: ['1000px', '400px'],
                     anim: 2,
-                    content: ['/admin/animal/edit/?id='+ids, 'yes','id'], //iframe的url，no代表不显示滚动条
+                    content: ['/admin/animal/edit/?id='+ids, 'yes','id'], //The url of the iframe, no means that the scroll bar is not displayed
                     end : function(){
 
                     },
@@ -145,10 +144,10 @@
                 var lable_child_id = $('#lable_child_id');
                 var title = $('#title');
 
-                //执行重载
+                //Perform reload
                 table.reload('testReload', {
                     page: {
-                        curr: 1 //重新从第 1 页开始
+                        curr: 1 //Start again from page 1
                     }
                     ,where: {
                         key: {

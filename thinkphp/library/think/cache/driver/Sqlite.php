@@ -14,7 +14,7 @@ namespace think\cache\driver;
 use think\cache\Driver;
 
 /**
- * Sqlite缓存驱动
+ * Sqlite cache driver
  * @author    liu21st <liu21st@gmail.com>
  */
 class Sqlite extends Driver
@@ -28,8 +28,8 @@ class Sqlite extends Driver
     ];
 
     /**
-     * 构造函数
-     * @param array $options 缓存参数
+     * Constructor
+     * @param array $options Cache parameter
      * @throws \BadFunctionCallException
      * @access public
      */
@@ -46,9 +46,9 @@ class Sqlite extends Driver
     }
 
     /**
-     * 获取实际的缓存标识
+     * Get the actual cache ID
      * @access public
-     * @param string $name 缓存名
+     * @param string $name Cache name
      * @return string
      */
     protected function getCacheKey($name)
@@ -57,9 +57,9 @@ class Sqlite extends Driver
     }
 
     /**
-     * 判断缓存
+     * Judgment cache
      * @access public
-     * @param string $name 缓存变量名
+     * @param string $name Cache variable name
      * @return bool
      */
     public function has($name)
@@ -71,10 +71,10 @@ class Sqlite extends Driver
     }
 
     /**
-     * 读取缓存
+     * Read cache
      * @access public
-     * @param string $name 缓存变量名
-     * @param mixed  $default 默认值
+     * @param string $name Cache variable name
+     * @param mixed  $default Defaults
      * @return mixed
      */
     public function get($name, $default = false)
@@ -85,7 +85,7 @@ class Sqlite extends Driver
         if (sqlite_num_rows($result)) {
             $content = sqlite_fetch_single($result);
             if (function_exists('gzcompress')) {
-                //启用数据压缩
+                //Enable data compression
                 $content = gzuncompress($content);
             }
             return unserialize($content);
@@ -94,11 +94,11 @@ class Sqlite extends Driver
     }
 
     /**
-     * 写入缓存
+     * Write cache
      * @access public
-     * @param string            $name 缓存变量名
-     * @param mixed             $value  存储数据
-     * @param integer|\DateTime $expire  有效时间（秒）
+     * @param string            $name Cache variable name
+     * @param mixed             $value  Storing data
+     * @param integer|\DateTime $expire  Effective time (seconds)
      * @return boolean
      */
     public function set($name, $value, $expire = null)
@@ -111,10 +111,10 @@ class Sqlite extends Driver
         if ($expire instanceof \DateTime) {
             $expire = $expire->getTimestamp();
         } else {
-            $expire = (0 == $expire) ? 0 : (time() + $expire); //缓存有效期为0表示永久缓存
+            $expire = (0 == $expire) ? 0 : (time() + $expire); //A cache validity period of 0 means permanent cache
         }
         if (function_exists('gzcompress')) {
-            //数据压缩
+            //data compression
             $value = gzcompress($value, 3);
         }
         if ($this->tag) {
@@ -131,10 +131,10 @@ class Sqlite extends Driver
     }
 
     /**
-     * 自增缓存（针对数值缓存）
+     * Self-incrementing cache (for numeric value cache)
      * @access public
-     * @param string    $name 缓存变量名
-     * @param int       $step 步长
+     * @param string    $name Cache variable name
+     * @param int       $step Step size
      * @return false|int
      */
     public function inc($name, $step = 1)
@@ -148,10 +148,10 @@ class Sqlite extends Driver
     }
 
     /**
-     * 自减缓存（针对数值缓存）
+     * Self-decreasing cache (for numeric value cache)
      * @access public
-     * @param string    $name 缓存变量名
-     * @param int       $step 步长
+     * @param string    $name Cache variable name
+     * @param int       $step Step size
      * @return false|int
      */
     public function dec($name, $step = 1)
@@ -165,9 +165,9 @@ class Sqlite extends Driver
     }
 
     /**
-     * 删除缓存
+     * Delete cache
      * @access public
-     * @param string $name 缓存变量名
+     * @param string $name Cache variable name
      * @return boolean
      */
     public function rm($name)
@@ -179,9 +179,9 @@ class Sqlite extends Driver
     }
 
     /**
-     * 清除缓存
+     * clear cache
      * @access public
-     * @param string $tag 标签名
+     * @param string $tag Label name
      * @return boolean
      */
     public function clear($tag = null)

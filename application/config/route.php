@@ -10,13 +10,13 @@
 // +----------------------------------------------------------------------
 use think\Route;
 
-Route::get('zlllogin','admin/login/index?key=value');
-Route::get('zlladmin','admin/index/index?key=value');
+Route::get('zlllogin','index.php/admin/login/index?key=value');
+Route::get('zlladmin','index.php/admin/index/index?key=value');
 Route::get('/admin',function(){
-    return "后台已被隐藏了！";
+    return "The background has been hidden!";
 });
-Route::get('admin/login/index',function(){
-    return "后台已被隐藏了！";
+Route::get('index.php/admin/login/index',function(){
+    return "The background has been hidden!";
 });
 return [
     '__pattern__' => [

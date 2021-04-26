@@ -26,8 +26,8 @@ class Builder
     private $outputDisabled = false;
 
     /**
-     * 构造方法
-     * @param string[] $arguments 参数
+     *
+     * @param string[] $arguments parameter
      */
     public function __construct(array $arguments = [])
     {
@@ -35,8 +35,8 @@ class Builder
     }
 
     /**
-     * 创建一个实例
-     * @param string[] $arguments 参数
+     * Create an instance
+     * @param string[] $arguments parameter
      * @return self
      */
     public static function create(array $arguments = [])
@@ -45,8 +45,8 @@ class Builder
     }
 
     /**
-     * 添加一个参数
-     * @param string $argument 参数
+     * Add a parameter
+     * @param string $argument parameter
      * @return self
      */
     public function add($argument)
@@ -57,7 +57,7 @@ class Builder
     }
 
     /**
-     * 添加一个前缀
+     * Add a prefix
      * @param string|array $prefix
      * @return self
      */
@@ -69,7 +69,7 @@ class Builder
     }
 
     /**
-     * 设置参数
+     * Setting parameters
      * @param string[] $arguments
      * @return  self
      */
@@ -81,7 +81,7 @@ class Builder
     }
 
     /**
-     * 设置工作目录
+     * Set working directory
      * @param null|string $cwd
      * @return  self
      */
@@ -93,7 +93,7 @@ class Builder
     }
 
     /**
-     * 是否初始化环境变量
+     * Whether to initialize environment variables
      * @param bool $inheritEnv
      * @return self
      */
@@ -105,7 +105,7 @@ class Builder
     }
 
     /**
-     * 设置环境变量
+     * Set environment variables
      * @param string      $name
      * @param null|string $value
      * @return self
@@ -118,7 +118,7 @@ class Builder
     }
 
     /**
-     *  添加环境变量
+     *  Add environment variables
      * @param array $variables
      * @return self
      */
@@ -130,7 +130,7 @@ class Builder
     }
 
     /**
-     * 设置输入
+     * Set input
      * @param mixed $input
      * @return self
      */
@@ -142,7 +142,7 @@ class Builder
     }
 
     /**
-     * 设置超时时间
+     * Set timeout
      * @param float|null $timeout
      * @return self
      */
@@ -166,7 +166,7 @@ class Builder
     }
 
     /**
-     * 设置proc_open选项
+     * Set proc_open option
      * @param string $name
      * @param string $value
      * @return self
@@ -179,7 +179,7 @@ class Builder
     }
 
     /**
-     * 禁止输出
+     * Prohibit output
      * @return self
      */
     public function disableOutput()
@@ -190,7 +190,7 @@ class Builder
     }
 
     /**
-     * 开启输出
+     * Turn on output
      * @return self
      */
     public function enableOutput()
@@ -201,7 +201,7 @@ class Builder
     }
 
     /**
-     * 创建一个Process实例
+     * Create a Process instance
      * @return Process
      */
     public function getProcess()

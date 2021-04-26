@@ -11,14 +11,14 @@
 
 return [
     // +----------------------------------------------------------------------
-    // | 应用设置
+    // | Application settings
     // +----------------------------------------------------------------------
 
-    //是否开启权限控制
+    //Whether to enable permission control
     'on'=>true,
-    //权限控制的类型 1：即时控制   2：登陆权限控制
+    //Types of access control 1: Instant control 2: Login access control
     'type'=>1,
-    //数据表
+    //data sheet
     'table'=>[
         'user'=>'admin',
         'role'=>'role',
@@ -26,11 +26,11 @@ return [
         'role_has_node'=>'role_has_node',
         'admin_has_role'=>'admin_has_role'
     ],
-    //首页例外
+    //Homepage exception
     'exception'=>[
         //'home'=>'all',
         'home'=>['index','welcome']
     ],
-    //超级管理员
+    //Super administrator
     'super'=>['zhangli'],
 ];

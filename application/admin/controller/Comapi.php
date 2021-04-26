@@ -6,7 +6,7 @@ use admin\controller\MyController;
 class Comapi extends MyController
 {
 
-   //主要写一下公共接口
+   //Mainly write about the public interface
     public function upImage(){
 
         if(request()->isAjax()){
@@ -17,12 +17,12 @@ class Comapi extends MyController
     }
 
     /*
- * 传入上传的$_FILe 返回的状态0为失败  1为成功
+ * The status returned by the $_FILe passed in and uploaded is 0 for failure and 1 for success
  */
     public function upload($upload){
         //$file = request()->file($upload);
         $allowType=array('jpg','png','jpeg');
-        $allowSize=100;//规定单位是M
+        $allowSize=100;//The prescribed unit is M
         $uploadDir='/public_html/public/uploads/';
         $msg=array();
 
@@ -30,30 +30,30 @@ class Comapi extends MyController
             $upfile=$upload['file'];
             if($upfile['error']!=0){
                 $msg['status']=0;
-                $msg['error']='上传图片出错';
+                $msg['error']='Error uploading picture';
                 return $msg;
             }
             $last=substr($upfile['name'],strrpos($upfile['name'],'.'));
             if(!in_array(trim($last,'.'),$allowType)){
                 $msg['status']=0;
-                $msg['error']='上传文件格式不支持,文件上传类型只限于:'.implode('.',$allowType);
+                $msg['error']='The upload file format is not supported, and the file upload type is limited to:'.implode('.',$allowType);
                 return $msg;
             }
-            //限制大小
+            //Limit size
             if($upfile['size']>100*1024*1024){
                 $msg['status']=0;
-                $msg['error']='上传图片过大，最大只能上传100M';
+                $msg['error']='The uploaded image is too large, and the maximum upload size is 100M';
                 return $msg;
             }
 
-            //随机生成一个文件夹名
+            //Randomly generate a folder name
             $uploadDir.=date('Ymd').'/';
-            //检查文件是否存在
+            //Check if the file exists
             if(!file_exists($uploadDir)){
-                //如果不存在了就新建
+                //If it does not exist, create a new one
                 if(!mkdir($uploadDir)){
                     $msg['status']=0;
-                    $msg['error']='生成文件夹失败';
+                    $msg['error']='Failed to generate folder';
                     return $msg;
                 }
             }
@@ -61,12 +61,12 @@ class Comapi extends MyController
             $Path=$uploadDir.$fileName;
             if(!move_uploaded_file($upfile['tmp_name'],$Path)){
                 $msg['status']=0;
-                $msg['error']='上传文件路径移动失败';
+                $msg['error']='Failed to move the upload file path';
                 return $msg;
             }
         }
         $msg['status']=1;
-        $msg['msg']='上传成功';
+        $msg['msg']='Uploaded successfully';
         $msg['savePath']=substr($Path,12);
         $msg['name']=$fileName;
         $msg['lastfix']=$last;

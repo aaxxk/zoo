@@ -9,20 +9,20 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-// 应用行为扩展定义文件
+// Application behavior extension definition file
 return [
-    // 应用初始化
+    // Application initialization
     'app_init'     => [],
-    // 应用开始
+    // Application start
     'app_begin'    => [],
-    // 模块初始化
+    // Module initialization
     'module_init'  => [],
-    // 操作开始执行
+    // Operation started
     'action_begin' => [],
-    // 视图内容过滤
+    // View content filtering
     'view_filter'  => [],
-    // 日志写入
+    // Log write
     'log_write'    => [],
-    // 应用结束
+    // End of application
     'app_end'      => [],
 ];

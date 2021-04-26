@@ -5,84 +5,84 @@ namespace think;
 class HttpClient {
 
     /**
-     * 慢请求时间，默认 3 秒
+     * Slow request time, 3 seconds by default
      */
     const SLOW_REQUEST_TIME = 3;
 
     /**
-     * 请求的url地址
+     * Requested url address
      * @var string
      */
     private $_request_url;
 
     /**
-     * 请求的port端口
+     * Requested port
      * @var int
      */
     private $_request_port;
 
     /**
-     * 请求的cookie
+     * Requested cookie
      * @var string
      */
     private $_request_cookie;
 
     /**
-     * 请求内容，请将请求的内容以 key=value&key2=value2 的方式提供
+     * Request content, please provide the requested content as key=value&key2=value2
      * @var string
      */
     private $_request_data;
 
     /**
-     * 需要上传的文件
+     * Files to upload
      * @var array
      */
     private $_request_files = array();
 
     /**
-     * 请求方法，默认是POST 方法
+     * Request method, the default is POST method
      * @var string
      */
     private $_method = 'GET';
 
     /**
-     * 证书文件
+     * Certificate file
      */
     private $_cert_file;
 
     /**
-     * 证书密码
+     * Certificate password
      * @var string
      */
     private $_cert_passwd;
 
     /**
-     * 证书类型PEM
+     * Certificate type PEM
      * @var string
      */
     private $_cert_type = 'PEM';
 
     /**
-     * CA文件
+     * CA file
      * @var string
      */
     private $_ca_file;
 
     /**
-     * 错误码
+     * error code
      * @var
      */
     private $_errno;
 
     /**
-     * 错误信息
+     * Error message
      * @var string
      */
     private $_error;
 
     /**
-     * 超时时间
-     * @var int 单位毫秒
+     * overtime time
+     * @var int Unit milliseconds
      */
     private $_timeout = 3000;
 
@@ -93,50 +93,50 @@ class HttpClient {
     private $_headers = array();
 
     /**
-     * UserAgent 信息
+     * UserAgent information
      * @var string
      */
     private $_user_agent;
 
     /**
-     * http状态码
+     * http status code
      * @var int
      */
     private $_response_code = 0;
 
     /**
-     * 应答头
+     * Response header
      * @var string
      */
     private $_response_header;
 
     /**
-     * 应答内容
+     * Response content
      * @var string
      */
     private $_response_body;
 
     /**
-     * http 日志名
+     * http Log name
      * @var string
      */
     private $_log_name = 'http_slow_request';
 
     /**
-     * curl 句柄资源信息
+     * curl Handle resource information
      * @var array
      */
     private $_curl_info = array();
 
     /**
-     * 构造方法
+     * Constructor
      */
 
     /**
      * HttpClient constructor.
-     * @param string $url 请求地址
-     * @param string $method 请求方式 get|post
-     * @param int $timeout 超时时间, 单位毫秒, 默认30秒
+     * @param string $url Request address
+     * @param string $method Request method get|post
+     * @param int $timeout Timeout time, in milliseconds, default 30 seconds
      */
     public function __construct($url = '', $method = 'GET', $timeout = 30000) {
         $this->setRequestUrl($url);
@@ -145,7 +145,7 @@ class HttpClient {
     }
 
     /**
-     * 设置请求地址
+     * Set request address
      * @param string $url
      * @return bool
      */
@@ -155,7 +155,7 @@ class HttpClient {
     }
 
     /**
-     * 设置请求端口
+     * Set request port
      * @param int $port
      * @return bool
      */
@@ -165,7 +165,7 @@ class HttpClient {
     }
 
     /**
-     * 设置请求Cookie
+     * Set request cookie
      * @param array|string $data
      * @return bool
      */
@@ -180,7 +180,7 @@ class HttpClient {
     }
 
     /**
-     * 设置请求的内容
+     * Set the requested content
      * @param string|array $data
      * @return bool
      */
@@ -221,7 +221,7 @@ class HttpClient {
     }
 
     /**
-     * 设置请求方法
+     * Set request method
      * @param string $method
      */
     public function setMethod($method) {
@@ -233,7 +233,7 @@ class HttpClient {
     }
 
     /**
-     * 设置证书信息
+     * Set certificate information
      * @param string $cert_file
      * @param string $cert_passwd
      * @param string $cert_type
@@ -250,7 +250,7 @@ class HttpClient {
     }
 
     /**
-     * 设置CA
+     * Set up the CA
      * @param string $ca_file
      * @return bool
      */
@@ -263,7 +263,7 @@ class HttpClient {
     }
 
     /**
-     * 设置超时时间,单位毫秒
+     * Set the timeout time, in milliseconds
      * @param $timeout
      * @return bool
      */
@@ -273,7 +273,7 @@ class HttpClient {
     }
 
     /**
-     * 设置HttpHeader
+     * Set HttpHeader
      * @param array $headers
      * @return bool
      */
@@ -287,7 +287,7 @@ class HttpClient {
     }
 
     /**
-     * 设置UserAgent
+     * Set up UserAgent
      * @param string $user_agent
      * @return bool
      */
@@ -300,7 +300,7 @@ class HttpClient {
     }
 
     /**
-     * 获取http响应状态码
+     * Get http response status code
      * @return int
      */
     public function getResponseCode() {
@@ -308,7 +308,7 @@ class HttpClient {
     }
 
     /**
-     * 获取UserAgent
+     * Get UserAgent
      * @return string
      */
     public function getUserAgent() {
@@ -316,7 +316,7 @@ class HttpClient {
     }
 
     /**
-     * 获取curl句柄信息
+     * Get curl handle information
      * @return array
      */
     public function getCurlInfo() {
@@ -324,7 +324,7 @@ class HttpClient {
     }
 
     /**
-     * 获取响应头信息
+     * Get response header information
      * @return string
      */
     public function getResponseHeader() {
@@ -332,7 +332,7 @@ class HttpClient {
     }
 
     /**
-     * 获取响应结果信息
+     * Get response result information
      * @return string
      */
     public function getResponseBody() {
@@ -340,7 +340,7 @@ class HttpClient {
     }
 
     /**
-     * 获取响应Cookie
+     * Get response cookie
      * @return array
      */
     public function getResponseCookie() {
@@ -356,7 +356,7 @@ class HttpClient {
     }
 
     /**
-     * 获取错误码
+     * Get error code
      * @return int
      */
     public function getErrNo() {
@@ -364,7 +364,7 @@ class HttpClient {
     }
 
     /**
-     * 获取错误码
+     * Get error code
      * @return string
      */
     public function getError() {
@@ -372,7 +372,7 @@ class HttpClient {
     }
 
     /**
-     * 执行远程请求
+     * Perform remote request
      * @return bool
      */
     public function exec() {
@@ -403,7 +403,7 @@ class HttpClient {
             }
         }
 
-        //设置HttpHeader
+        //Set HttpHeader
         if ($this->_headers !== null) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $this->_headers);
         }
@@ -421,21 +421,21 @@ class HttpClient {
             curl_setopt($ch, CURLOPT_USERAGENT, $this->_user_agent);
         }
 
-        //设置证书信息
+        //Set certificate information
         if ($this->_cert_file !== null) {
             curl_setopt($ch, CURLOPT_SSLCERT, $this->_cert_file);
             curl_setopt($ch, CURLOPT_SSLCERTPASSWD, $this->_cert_passwd);
             curl_setopt($ch, CURLOPT_SSLCERTTYPE, $this->_cert_type);
         }
 
-        //设置CA
+        //Set up the CA
         if ($this->_ca_file !== null) {
-            // 对认证证书来源的检查，0表示阻止对证书的合法性的检查。1需要设置CURLOPT_CAINFO
+            // Check the source of the certificate, 0 means to prevent the check of the legality of the certificate. 1 Need to set CURLOPT_CAINFO
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 1);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
             curl_setopt($ch, CURLOPT_CAINFO, $this->_ca_file);
         } else {
-            // 对认证证书来源的检查，0表示阻止对证书的合法性的检查。1需要设置CURLOPT_CAINFO
+            // Check the source of the certificate, 0 means to prevent the check of the legality of the certificate. 1 Need to set CURLOPT_CAINFO
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         }

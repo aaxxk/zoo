@@ -1,15 +1,15 @@
 $(function () {
-    //加载弹出层
+    //Load the popup layer
     layui.use(['form','element'],
     function() {
         layer = layui.layer;
         element = layui.element;
     });
 
-    //触发事件
+    //trigger event
   var tab = {
         tabAdd: function(title,url,id){
-          //新增一个Tab项
+          //Add a Tab item
           element.tabAdd('xbs_tab', {
             title: title 
             ,content: '<iframe tab-id="'+id+'" frameborder="0" src="'+url+'" scrolling="yes" class="x-iframe"></iframe>'
@@ -17,15 +17,15 @@ $(function () {
           })
         }
         ,tabDelete: function(othis){
-          //删除指定Tab项
+          //Delete the specified Tab item
           element.tabDelete('xbs_tab', '44'); //删除：“商品管理”
           
           
           othis.addClass('layui-btn-disabled');
         }
         ,tabChange: function(id){
-          //切换到指定Tab项
-          element.tabChange('xbs_tab', id); //切换到：用户管理
+          //Switch to the specified Tab item
+          element.tabChange('xbs_tab', id); //Switch to: user management
         }
       };
 
@@ -57,7 +57,7 @@ $(function () {
         }
     }
 
-    //开启表格多选
+    //Open form multiple selection
     tableCheck.init();
       
 
@@ -86,7 +86,7 @@ $(function () {
         $('.layui-tab-title li').eq(0).find('i').remove();
     });
 
-    //左侧菜单效果
+    //Left menu effect
     // $('#content').bind("click",function(event){
     $('.left-nav #nav li').click(function (event) {
 
@@ -128,14 +128,14 @@ $(function () {
     
 })
 
-/*弹出层*/
+/*Pop-up layer*/
 /*
-    参数解释：
-    title   标题
-    url     请求的url
-    id      需要操作的数据id
-    w       弹出层宽度（缺省调默认值）
-    h       弹出层高度（缺省调默认值）
+    Parameter explanation:
+    title   title
+    url     Requested url
+    id      The id of the data to be operated
+    w       Pop-up layer width (default value is adjusted by default)
+    h       Pop-up layer height (default value is adjusted by default)
 */
 function x_admin_show(title,url,w,h){
     if (title == null || title == '') {
@@ -153,7 +153,7 @@ function x_admin_show(title,url,w,h){
     layer.open({
         type: 2,
         area: [w+'px', h +'px'],
-        fix: false, //不固定
+        fix: false, //Not fixed
         maxmin: true,
         shadeClose: true,
         shade:0.4,
@@ -162,7 +162,7 @@ function x_admin_show(title,url,w,h){
     });
 }
 
-/*关闭弹出框口*/
+/*Close the pop-up box*/
 function x_admin_close(){
     var index = parent.layer.getFrameIndex(window.name);
     parent.layer.close(index);

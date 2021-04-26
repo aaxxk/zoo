@@ -14,16 +14,16 @@ namespace think;
 class Hook
 {
     /**
-     * @var array 标签
+     * @var array label
      */
     private static $tags = [];
 
     /**
-     * 动态添加行为扩展到某个标签
+     * Dynamically add behavior extended to a certain label
      * @access public
-     * @param  string $tag      标签名称
-     * @param  mixed  $behavior 行为名称
-     * @param  bool   $first    是否放到开头执行
+     * @param  string $tag      Label name
+     * @param  mixed  $behavior Behavior name
+     * @param  bool   $first    Whether to put it at the beginning
      * @return void
      */
     public static function add($tag, $behavior, $first = false)
@@ -46,10 +46,10 @@ class Hook
     }
 
     /**
-     * 批量导入插件
+     * Import plugins in bulk
      * @access public
-     * @param  array   $tags      插件信息
-     * @param  boolean $recursive 是否递归合并
+     * @param  array   $tags      Plug-in information
+     * @param  boolean $recursive Whether to merge recursively
      * @return void
      */
     public static function import(array $tags, $recursive = true)
@@ -64,9 +64,9 @@ class Hook
     }
 
     /**
-     * 获取插件信息
+     * Get plug-in information
      * @access public
-     * @param  string $tag 插件位置(留空获取全部)
+     * @param  string $tag Plug-in location (leave blank to get all)
      * @return array
      */
     public static function get($tag = '')
@@ -79,12 +79,12 @@ class Hook
     }
 
     /**
-     * 监听标签的行为
+     * Monitor label behavior
      * @access public
-     * @param  string $tag    标签名称
-     * @param  mixed  $params 传入参数
-     * @param  mixed  $extra  额外参数
-     * @param  bool   $once   只获取一个有效返回值
+     * @param  string $tag    Label name
+     * @param  mixed  $params Incoming parameters
+     * @param  mixed  $extra  Extra parameters
+     * @param  bool   $once   Only get a valid return value
      * @return mixed
      */
     public static function listen($tag, &$params = null, $extra = null, $once = false)
@@ -94,7 +94,7 @@ class Hook
         foreach (static::get($tag) as $key => $name) {
             $results[$key] = self::exec($name, $tag, $params, $extra);
 
-            // 如果返回 false，或者仅获取一个有效返回则中断行为执行
+            // If it returns false, or only a valid return is obtained, the behavior execution will be interrupted
             if (false === $results[$key] || (!is_null($results[$key]) && $once)) {
                 break;
             }
@@ -104,12 +104,12 @@ class Hook
     }
 
     /**
-     * 执行某个行为
+     * Perform an action
      * @access public
-     * @param  mixed  $class  要执行的行为
-     * @param  string $tag    方法名（标签名）
-     * @param  mixed  $params 传人的参数
-     * @param  mixed  $extra  额外参数
+     * @param  mixed  $class  Action to be performed
+     * @param  string $tag    Method name (tag name)
+     * @param  mixed  $params Passed parameters
+     * @param  mixed  $extra  Extra parameters
      * @return mixed
      */
     public static function exec($class, $tag = '', &$params = null, $extra = null)

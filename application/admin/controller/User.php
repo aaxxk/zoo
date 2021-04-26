@@ -18,7 +18,7 @@ class User extends MyController
         return $this->fetch();
     }
 
-    //增
+    //add
     public function add(){
 
         if(request()->isAjax()){
@@ -30,15 +30,15 @@ class User extends MyController
             $result=db('user')->insert($data);
             if($result!=false){
 
-                return ajaxRuturn2(200,'','添加成功');
+                return ajaxRuturn2(200,'','Added successfully');
             }
-            return ajaxRuturn2(500,'','添加失败');
+            return ajaxRuturn2(500,'','add failed');
         }
 
        return $this->fetch();
     }
 
-    //修改密码
+    //change Password
     public function editpass(){
 
         $id=input('id');
@@ -52,9 +52,9 @@ class User extends MyController
 
             $result=db('user')->where('id',$param['id'])->update($data);
             if($result!=false){
-                return ajaxRuturn2('200','','密码修改成功');
+                return ajaxRuturn2('200','','Password reset complete');
             }
-            return ajaxRuturn2('500','','密码修改失败');
+            return ajaxRuturn2('500','','Password modification failed');
         }
 
         $admin=db('user')->where('id',$id)->find();
@@ -62,16 +62,16 @@ class User extends MyController
         return $this->fetch();
     }
 
-    //删除用户
+    //delete users
     public function delete(){
 
         if(request()->isAjax()){
             $param=request()->param();
             $result=db('user')->where('id',$param['id'])->delete();
             if($result!=false){
-                return ajaxRuturn2('200','','删除成功');
+                return ajaxRuturn2('200','','successfully deleted');
             }
-            return ajaxRuturn2('500','','删除失败');
+            return ajaxRuturn2('500','','failed to delete');
         }
 
     }
@@ -94,13 +94,13 @@ class User extends MyController
             }
             $model->updateInfo($data);
 
-            ajaxReturn(200,'','修改成功！');
+            ajaxReturn(200,'','Successfully modified!');
         }
 
         $id = input('id') ?? '';
 
         if(empty($id)){
-            ajaxReturn(201,'','id 不能为空！');
+            ajaxReturn(201,'','id cannot be empty！');
         }
 
         $userInfo = $model->getUserInfo($id);

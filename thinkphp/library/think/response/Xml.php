@@ -17,42 +17,42 @@ use think\Response;
 
 class Xml extends Response
 {
-    // 输出参数
+    // Output parameters
     protected $options = [
-        // 根节点名
+        // Root node name
         'root_node' => 'think',
-        // 根节点属性
+        // Root node attributes
         'root_attr' => '',
-        //数字索引的子节点名
+        //The name of the child node of the numerical index
         'item_node' => 'item',
-        // 数字索引子节点key转换的属性名
+        // The attribute name of the key conversion of the digital index child node
         'item_key'  => 'id',
-        // 数据编码
+        // Data encoding
         'encoding'  => 'utf-8',
     ];
 
     protected $contentType = 'text/xml';
 
     /**
-     * 处理数据
+     * Data processing
      * @access protected
-     * @param mixed $data 要处理的数据
+     * @param mixed $data Data to be processed
      * @return mixed
      */
     protected function output($data)
     {
-        // XML数据转换
+        // XML data conversion
         return $this->xmlEncode($data, $this->options['root_node'], $this->options['item_node'], $this->options['root_attr'], $this->options['item_key'], $this->options['encoding']);
     }
 
     /**
-     * XML编码
-     * @param mixed $data 数据
-     * @param string $root 根节点名
-     * @param string $item 数字索引的子节点名
-     * @param string $attr 根节点属性
-     * @param string $id   数字索引子节点key转换的属性名
-     * @param string $encoding 数据编码
+     * XML encoding
+     * @param mixed $data data
+     * @param string $root Root node name
+     * @param string $item The name of the child node of the numerical index
+     * @param string $attr Root node attributes
+     * @param string $id   The attribute name of the key conversion of the digital index child node
+     * @param string $encoding Data encoding
      * @return string
      */
     protected function xmlEncode($data, $root, $item, $attr, $id, $encoding)
@@ -74,10 +74,10 @@ class Xml extends Response
     }
 
     /**
-     * 数据XML编码
-     * @param mixed  $data 数据
-     * @param string $item 数字索引时的节点名称
-     * @param string $id   数字索引key转换为的属性名
+     * Data XML encoding
+     * @param mixed  $data data
+     * @param string $item Node name in digital index
+     * @param string $id   The attribute name that the numeric index key is converted to
      * @return string
      */
     protected function dataToXml($data, $item, $id)

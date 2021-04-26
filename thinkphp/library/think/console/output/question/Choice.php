@@ -22,10 +22,10 @@ class Choice extends Question
     private $errorMessage = 'Value "%s" is invalid';
 
     /**
-     * 构造方法
-     * @param string $question 问题
-     * @param array  $choices  选项
-     * @param mixed  $default  默认答案
+     * Constructor
+     * @param string $question problem
+     * @param array  $choices  Options
+     * @param mixed  $default  Default answer
      */
     public function __construct($question, array $choices, $default = null)
     {
@@ -37,7 +37,7 @@ class Choice extends Question
     }
 
     /**
-     * 可选项
+     * Optional
      * @return array
      */
     public function getChoices()
@@ -46,7 +46,7 @@ class Choice extends Question
     }
 
     /**
-     * 设置可否多选
+     * Whether the setting can be multi-selected
      * @param bool $multiselect
      * @return self
      */
@@ -64,7 +64,7 @@ class Choice extends Question
     }
 
     /**
-     * 获取提示
+     * Get tips
      * @return string
      */
     public function getPrompt()
@@ -73,7 +73,7 @@ class Choice extends Question
     }
 
     /**
-     * 设置提示
+     * Set up tips
      * @param string $prompt
      * @return self
      */
@@ -85,7 +85,7 @@ class Choice extends Question
     }
 
     /**
-     * 设置错误提示信息
+     * Set error message
      * @param string $errorMessage
      * @return self
      */
@@ -98,7 +98,7 @@ class Choice extends Question
     }
 
     /**
-     * 获取默认的验证方法
+     * Get the default authentication method
      * @return callable
      */
     private function getDefaultValidator()

@@ -132,7 +132,7 @@ layui.define("jquery", function(e) {
                     }(), function() {
                         return i.check && i.check == "checkbox" ? '<input type="checkbox" name="' + i.checkboxName + '" ' + ((n.checked && n.checked == true) ? 'checked="checked"' : "") + (n.checkboxValue ? ('value="' + n.checkboxValue + '"') : "") + 'data-parent-id="' + n.pid + '"' + 'id="' + n.id + '"' + (i.checkboxStyle ? ('style="' + i.checkboxStyle + '"') : "") + ' />' : "";
                     }(), function() {
-                        return '<a href="' + (n.href || "javascript:;") + '" ' + (i.target && n.href ? 'target="' + i.target + '"' : "") + ">" + ('<i class="layui-icon layui-tree-' + (l ? "branch" : "leaf") + '">' + (l ? n.spread ? t.branch[1] : t.branch[0] : t.leaf) + "</i>") + ("<cite>" + (n.name || "未命名") + "</cite></a>")
+                        return '<a href="' + (n.href || "javascript:;") + '" ' + (i.target && n.href ? 'target="' + i.target + '"' : "") + ">" + ('<i class="layui-icon layui-tree-' + (l ? "branch" : "leaf") + '">' + (l ? n.spread ? t.branch[1] : t.branch[0] : t.leaf) + "</i>") + ("<cite>" + (n.name || "unnamed") + "</cite></a>")
                     }(), "</li>"].join(""));
                 l && (s.append(c), r.tree(c, n.children)), e.append(s), "function" == typeof i.click && r.click(s, n), r.spread(s, n), i.drag && r.drag(s, n)
                 r.changed(s, n)
@@ -173,7 +173,7 @@ layui.define("jquery", function(e) {
                             var ret = ""
                             for (var ind = 0; ind < i.layout.length; ind++) {
                                 if (i.layout[ind].treeNodes) {
-                                    ret += '<td class="' + i.layout[ind].colClass + '" style="' + i.layout[ind].style + '"><li ' + (n.spread ? 'data-spread="' + n.spread + '"' : "") + '>' + (indent + (l ? '<i class="layui-icon layui-tree-spread">' + (n.spread ? t.arrow[1] : t.arrow[0]) + "</i>" : "")) + '<a href="' + (n.href || "javascript:;") + '" ' + (i.target && n.href ? 'target="' + i.target + '"' : "") + ">" + ('<i class="layui-icon layui-tree-' + (l ? "branch" : "leaf") + '">' + (l ? n.spread ? t.branch[1] : t.branch[0] : t.leaf) + "</i>") + ("<cite>" + (n.name || "未命名") + "</cite></a></li></td>");
+                                    ret += '<td class="' + i.layout[ind].colClass + '" style="' + i.layout[ind].style + '"><li ' + (n.spread ? 'data-spread="' + n.spread + '"' : "") + '>' + (indent + (l ? '<i class="layui-icon layui-tree-spread">' + (n.spread ? t.arrow[1] : t.arrow[0]) + "</i>" : "")) + '<a href="' + (n.href || "javascript:;") + '" ' + (i.target && n.href ? 'target="' + i.target + '"' : "") + ">" + ('<i class="layui-icon layui-tree-' + (l ? "branch" : "leaf") + '">' + (l ? n.spread ? t.branch[1] : t.branch[0] : t.leaf) + "</i>") + ("<cite>" + (n.name || "unnamed") + "</cite></a></li></td>");
                                 } else if (i.layout[ind].render) {
                                     ret += '<td class="' + i.layout[ind].colClass + '" style="' + i.layout[ind].style + '">' + i.layout[ind].render(n) + '</td>'
                                 } else {
@@ -428,12 +428,12 @@ layui.define("jquery", function(e) {
         },  e("tree", function(e) {
             var r = new i(e = e || {}),
                 t = o(e.elem);
-            return t[0] ? void r.init(t) : a.error("layui.tree 没有找到" + e.elem + "元素");
+            return t[0] ? void r.init(t) : a.error("layui.tree could not find it" + e.elem + "元素");
         }), e("treeGird", function(e) {
             var r = new i(e = e || {}),
                 t = o(e.elem);
             var v = r.initGird(t);
-            return t[0] ? v : a.error("layui.tree 没有找到" + e.elem + "元素");
+            return t[0] ? v : a.error("layui.tree could not find it" + e.elem + "element");
         }), e("expand", function(el) {
             var a = this,
                 oi = new i(el = el || {});

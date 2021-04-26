@@ -13,7 +13,7 @@ class Utils
 {
 
     /**
-     * 转义字符串
+     * Escape string
      * @param string $argument
      * @return string
      */
@@ -47,7 +47,7 @@ class Utils
     }
 
     /**
-     * 验证并进行规范化Process输入。
+     * Verify and normalize Process input.
      * @param string $caller
      * @param mixed  $input
      * @return string

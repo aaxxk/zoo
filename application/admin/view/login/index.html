@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>后台登录-X-admin2.0</title>
+    <title>Backstage login-X-admin2.0</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -38,15 +38,15 @@
     }
 </style>
 <div class="login">
-    <div class="message">管理后台</div>
+    <div class="message">Management background</div>
     <div id="darkbannerwrap"></div>
 
     <form method="post" class="layui-form" action="">
-        <input name="username" id="usm" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
+        <input name="username" id="usm" placeholder="username"  type="text" lay-verify="required" class="layui-input" >
         <hr class="hr15">
-        <input name="password" id="psd" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
+        <input name="password" id="psd" lay-verify="required" placeholder="password"  type="password" class="layui-input">
         <hr class="hr15">
-        <input value="登录" lay-submit lay-filter="login" style="width:100%;" onclick="checklogin()" class="btn">
+        <input value="log in" lay-submit lay-filter="login" style="width:100%;" onclick="checklogin()" class="btn">
         <hr class="hr20" >
     </form>
 </div>
@@ -65,7 +65,7 @@
 
         $.ajax({
             url:"admin/login/index",
-            data:{username:usm,password:psd},//传递到处理页面的值，也是JSON数据，要用{}。如果传2个值就在{}里面加逗号，再写另外1个值。
+            data:{username:usm,password:psd},//The value passed to the processing page is also JSON data, so {} is used. If you pass 2 values, add a comma in {} and write another value.
             type:"POST",
             dataType:"json",
             success:function(data){

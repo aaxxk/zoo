@@ -43,7 +43,7 @@ class Schema extends Command
         }
         if ($input->hasOption('module')) {
             $module = $input->getOption('module');
-            // 读取模型
+            // Read model
             $path = APP_PATH . $module . DS . 'model';
             $list = is_dir($path) ? scandir($path) : [];
             $app  = App::$namespace;
