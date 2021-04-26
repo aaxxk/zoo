@@ -21,7 +21,7 @@ class Comapi extends MyController
  */
     public function upload($upload){
         //$file = request()->file($upload);
-        $allowType=array('jpg','png','jpeg');
+        $allowType=array('jpg','png','jpeg','jfif');
         $allowSize=100;//The prescribed unit is M
         $uploadDir='/public_html/public/uploads/';
         $msg=array();
