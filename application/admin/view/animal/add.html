@@ -65,12 +65,12 @@
 
         //执行实例
         var uploadInst = upload.render({
-            elem: '#test1' //绑定元素
-            ,url: "/admin/comapi/upImage" //上传接口
+            elem: '#test1'
+            ,url: "/index.php/admin/comapi/upImage"
             ,method:'post'
             ,done: function(res){
 
-                //上传完毕回调
+
                 if(res.status==1){
                     layer.msg(res.msg);
                     var str = '/'+res.savePath
@@ -81,8 +81,8 @@
 
             }
             ,error: function(){
-                //请求异常回调
-                layer.msg('上传失败');
+
+                layer.msg('error');
             }
         });
     });
@@ -98,7 +98,7 @@
         });
         layedit.set({
             uploadImage: {
-                url: '/admin/comapi/upImage' //接口url
+                url: '/index.php/admin/comapi/upImage'
                 ,type: 'post', //默认post
                 success:function(res){
                     console.log(res);
@@ -106,14 +106,14 @@
             }
         });
 
-        var index=layedit.build('demo'); //建立编辑器
+        var index=layedit.build('demo');
 
         //监听提交
         form.on('submit(add)', function(data){
-            //发异步，把数据提交给php
+
             $.ajax({
-                url:"/admin/animal/add",
-                data:$("#product").serialize(),//传递到处理页面的值，也是JSON数据，要用{}。如果传2个值就在{}里面加逗号，再写另外1个值。
+                url:"/indx.php/admin/animal/add",
+                data:$("#product").serialize(),
                 type:"POST",
                 dataType:"json",
                 success:function(data){

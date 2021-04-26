@@ -13,9 +13,4 @@ class Index extends MyController
         $this->assign('menu_list',$menu_list['menu_list']);
         return $this->fetch();
     }
-
-    public function welcome(){
-        NewLog::log('hahaha','voice_changer');
-        return $this->fetch();
-    }
 }

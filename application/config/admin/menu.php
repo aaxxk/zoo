@@ -18,11 +18,11 @@ return [
         'children'=>[
             [
                 'title'=>'Animal Manage',
-                'path'=>'/admin/animal/index'
+                'path'=>'/index.php/admin/animal/index'
             ],
             [
                 'title'=>'Application',
-                'path'=>'/admin/apply/index'
+                'path'=>'/index.php/admin/apply/index'
             ]
         ]
     ]

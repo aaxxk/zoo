@@ -38,7 +38,7 @@ class Login extends Controller
         $admin = session('admin');
 
         if(!empty($admin)){
-            $this->success('You are logged in!','/admin/index/index');
+            $this->success('You are logged in!','/index.php/admin/index/index');
         }
 
         return $this->fetch('login/index');

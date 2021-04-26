@@ -11,7 +11,7 @@
         <div class="layui-input-inline layui-show-xs-block">
             <input type="text" name="title" id="title" placeholder="Please enter the title" autocomplete="off" class="layui-input"></div>
         <div class="layui-input-inline layui-show-xs-block">
-            <a class="layui-btn layui-btn" onclick="x_admin_show('add','/admin/animal/add',600,600)">
+            <a class="layui-btn layui-btn" onclick="x_admin_show('add','/index.php/admin/animal/add',600,600)">
                 <i class="layui-icon"></i>add</a>
             <a class="layui-btn" data-type="reload">
                 <i class="layui-icon">&#xe615;</i></a>
@@ -50,7 +50,7 @@
         //Method-level rendering
         table.render({
             elem: '#LAY_table_user'
-            ,url: "/admin/animal/index"
+            ,url: "/index.php/admin/animal/index"
             ,limits:[20,30,40]
             ,cols: [[
                 {field:'id', title: 'ID', width:'5%', sort: true}
@@ -102,7 +102,7 @@
                     var id=data.id;
 
                     $.ajax({
-                        url:"/admin/animal/delete",
+                        url:"/index.php/admin/animal/delete",
                         data:{id:id},//The value passed to the processing page is also JSON data, so {} is used. If you pass 2 values, add a comma in {} and write another value.
                         type:"POST",
                         dataType:"json",
@@ -129,7 +129,7 @@
                     shade: [0],
                     area: ['1000px', '400px'],
                     anim: 2,
-                    content: ['/admin/animal/edit/?id='+ids, 'yes','id'], //The url of the iframe, no means that the scroll bar is not displayed
+                    content: ['/index.php/admin/animal/edit/?id='+ids, 'yes','id'], //The url of the iframe, no means that the scroll bar is not displayed
                     end : function(){
 
                     },

@@ -46,7 +46,7 @@
         //Method-level rendering
         table.render({
             elem: '#LAY_table_user'
-            ,url: "/admin/apply/index"
+            ,url: "/index.php/admin/apply/index"
             ,limits:[20,30,40]
             ,cols: [[
                 {field:'id', title: 'ID', width:'5%', sort: true}
@@ -98,7 +98,7 @@
                     var id=data.id;
 
                     $.ajax({
-                        url:"/admin/apply/refuse",
+                        url:"/index.php/admin/apply/refuse",
                         data:{id:id},//The value passed to the processing page is also JSON data, so {} is used. If you pass 2 values, add a comma in {} and write another value.
                         type:"POST",
                         dataType:"json",
@@ -122,7 +122,7 @@
                     var id=data.id;
 
                     $.ajax({
-                        url:"/admin/apply/pass",
+                        url:"/index.php/admin/apply/pass",
                         data:{id:id},//The value passed to the processing page is also JSON data, so {} is used. If you pass 2 values, add a comma in {} and write another value.
                         type:"POST",
                         dataType:"json",
