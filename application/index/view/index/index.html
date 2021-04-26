@@ -123,15 +123,15 @@
                     </div>
                     <script>
                         function record(){
-                            location = "index/user/record";
+                            location = "/index.php/index/user/record";
                         }
                         function animal(){
-                            location = "index/user/animal";
+                            location = "/index.php/index/user/animal";
                         }
                         function logout(){
                             $.ajax({
                                 type:"POST",
-                                url:"index/user/logout",
+                                url:"/index.php/index/user/logout",
                                 dataType:"json",
                                 data:$("#logout").serialize(),
                                 success:function(res){
@@ -186,7 +186,7 @@
                         function login(){
                             $.ajax({
                                 type:"POST",
-                                url:"index/user/login",
+                                url:"/index.php/index/user/login",
                                 dataType:"json",
                                 data:$("#loginform").serialize(),
                                 success:function(res){
@@ -268,7 +268,7 @@
                             console.log(strEmail);
                             $.ajax({
                                 type:"POST",
-                                url:"index/user/register",
+                                url:"/index.php/index/user/register",
                                 dataType:"json",
                                 data:$("#regform").serialize(),
                                 success:function(res){
@@ -399,7 +399,7 @@
                     var ids = id;
                     $.ajax({
                         type:"POST",
-                        url:"index/user/apply",
+                        url:"/index.php/index/user/apply",
                         dataType:"json",
                         data:{id:ids},
                         success:function(res){
