@@ -50,7 +50,7 @@ class Login extends Controller
 
         session('admin',null);
         cookie('admin',null);
-        $this->redirect('/zlllogin');
+        $this->redirect('/index.php/zlllogin');
 
     }
 
