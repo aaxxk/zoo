@@ -23,7 +23,7 @@ class Comapi extends MyController
         //$file = request()->file($upload);
         $allowType=array('jpg','png','jpeg','jfif');
         $allowSize=100;//The prescribed unit is M
-        $uploadDir='/public_html/public/uploads/';
+        $uploadDir='/home/u-190174923/public_html/public/uploads/';
         $msg=array();
 
         if(!empty($upload)){
