@@ -99,7 +99,7 @@
         layedit.set({
             uploadImage: {
                 url: '/index.php/admin/comapi/upImage'
-                ,type: 'post', //默认post
+                ,type: 'post',
                 success:function(res){
                     console.log(res);
                 }
@@ -108,7 +108,7 @@
 
         var index=layedit.build('demo');
 
-        //监听提交
+
         form.on('submit(add)', function(data){
 
             $.ajax({

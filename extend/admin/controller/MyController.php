@@ -13,7 +13,7 @@ class MyController extends Controller
         4=>"megafauna"
     ];
 
-    //初始化
+    //init
     public function __construct()
     {
         parent::__construct();
@@ -24,7 +24,7 @@ class MyController extends Controller
 
         $session=session('admin');
         if (empty($session)){
-            echo "你是在找后台在哪嘛！";die();
+            echo "Hello world！";die();
         }
         $this->assign('session',$session);
     }

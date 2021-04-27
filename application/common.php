@@ -9,7 +9,7 @@
 // | Author: 流年 <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-// 应用公共文件
+
 function ajaxReturn($code,$data,$msg){
 
     $param['code']=$code;
@@ -27,7 +27,7 @@ function ajaxRuturn2($code,$data,$msg){
     return $param;
 }
 
-//获取ip 地址
+//ip
 function get_client_ip() {
     static $ip = null;
     if ($ip !== null) {
@@ -54,9 +54,7 @@ function return_json($data,$status = 200,$msg = ''){
     echo json_encode($param);exit();
 }
 
-/*
-     * layui分页查询插件特定返回数据格式 code msg count data
-     * */
+
 function layuiReturn($param,$count){
     $data['code'] = 0;
     $data['msg']  = '';
@@ -65,9 +63,7 @@ function layuiReturn($param,$count){
 
     echo json_encode($data);exit();
 }
-/*
-     * layui分页查询插件特定返回数据格式 code msg count data
-     * */
+
 function MessageLayuiPage($param,$count){
     $data['code']='0';
     $data['msg']='';
