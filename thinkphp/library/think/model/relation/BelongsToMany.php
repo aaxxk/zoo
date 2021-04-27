@@ -23,11 +23,11 @@ use think\Paginator;
 
 class BelongsToMany extends Relation
 {
-    // 中间表表名
+    //
     protected $middle;
-    // 中间表模型名称
+    //
     protected $pivotName;
-    // 中间表模型对象
+    //
     protected $pivot;
 
     /**

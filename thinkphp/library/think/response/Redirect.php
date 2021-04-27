@@ -21,7 +21,7 @@ class Redirect extends Response
 
     protected $options = [];
 
-    // URL参数
+    // URL
     protected $params = [];
 
     public function __construct($data = '', $code = 302, array $header = [], array $options = [])
@@ -31,9 +31,9 @@ class Redirect extends Response
     }
 
     /**
-     * 处理数据
+     *
      * @access protected
-     * @param mixed $data 要处理的数据
+     * @param mixed $data
      * @return mixed
      */
     protected function output($data)
@@ -43,10 +43,10 @@ class Redirect extends Response
     }
 
     /**
-     * 重定向传值（通过Session）
+     * Session
      * @access protected
-     * @param string|array  $name 变量名或者数组
-     * @param mixed         $value 值
+     * @param string|array  $name
+     * @param mixed         $value
      * @return $this
      */
     public function with($name, $value = null)

@@ -15,7 +15,7 @@ use think\Response;
 
 class Json extends Response
 {
-    // 输出参数
+    //
     protected $options = [
         'json_encode_param' => JSON_UNESCAPED_UNICODE,
     ];
@@ -23,16 +23,16 @@ class Json extends Response
     protected $contentType = 'application/json';
 
     /**
-     * 处理数据
+     *
      * @access protected
-     * @param mixed $data 要处理的数据
+     * @param mixed $data
      * @return mixed
      * @throws \Exception
      */
     protected function output($data)
     {
         try {
-            // 返回JSON数据格式到客户端 包含状态信息
+            //
             $data = json_encode($data, $this->options['json_encode_param']);
 
             if ($data === false) {
